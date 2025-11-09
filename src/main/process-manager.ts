@@ -1,6 +1,8 @@
 import { spawn, exec } from 'child_process';
 import { promisify } from 'util';
 import * as net from 'net';
+import * as fs from 'fs';
+import * as path from 'path';
 
 const execAsync = promisify(exec);
 
@@ -94,6 +96,84 @@ export class ProcessManager {
   }
 
   /**
+   * 诊断 Windows 错误码
+   */
+  private getWindowsErrorDescription(code: number): string {
+    // 将退出码转换为十六进制
+    const hexCode = `0x${code.toString(16).toUpperCase()}`;
+
+    // 常见的 Windows 错误码
+    const errorCodes: { [key: number]: string } = {
+      0xC0000135: 'STATUS_DLL_NOT_FOUND - 无法找到所需的 DLL 文件。请检查：\n' +
+        '  1. 确保 CloudLinkKitDaemon.exe 所在目录包含所有必需的 DLL 文件\n' +
+        '  2. 检查是否缺少 Visual C++ 运行库（VC++ Redistributable）\n' +
+        '  3. 尝试以管理员权限运行程序\n' +
+        '  4. 检查系统 PATH 环境变量是否包含必要的路径',
+      0xC0000142: 'STATUS_DLL_INIT_FAILED - DLL 初始化失败',
+      0xC0000017: 'STATUS_NO_MEMORY - 内存不足',
+      0xC0000005: 'STATUS_ACCESS_VIOLATION - 访问违规',
+    };
+
+    const description = errorCodes[code];
+    if (description) {
+      return `${hexCode}: ${description}`;
+    }
+    return `${hexCode}: 未知错误 (退出码: ${code})`;
+  }
+
+  /**
+   * 检查文件是否存在和可访问
+   */
+  private async checkFileAccessibility(filePath: string): Promise<{ accessible: boolean; error?: string }> {
+    try {
+      if (!fs.existsSync(filePath)) {
+        return { accessible: false, error: '文件不存在' };
+      }
+
+      // 检查文件权限
+      try {
+        fs.accessSync(filePath, fs.constants.F_OK | fs.constants.R_OK);
+      } catch (err: any) {
+        return { accessible: false, error: `文件权限不足: ${err.message}` };
+      }
+
+      // 检查是否是文件（不是目录）
+      const stats = fs.statSync(filePath);
+      if (!stats.isFile()) {
+        return { accessible: false, error: '路径不是文件' };
+      }
+
+      return { accessible: true };
+    } catch (error: any) {
+      return { accessible: false, error: error.message };
+    }
+  }
+
+  /**
+   * 检查进程目录中的常见 DLL 文件
+   */
+  private async checkCommonDLLs(processDir: string): Promise<string[]> {
+    const commonDLLs = [
+      'msvcr120.dll',
+      'msvcp120.dll',
+      'vcruntime140.dll',
+      'msvcp140.dll',
+      'vcruntime140_1.dll',
+      'api-ms-win-crt-runtime-l1-1-0.dll',
+    ];
+
+    const missingDLLs: string[] = [];
+    for (const dll of commonDLLs) {
+      const dllPath = path.join(processDir, dll);
+      if (!fs.existsSync(dllPath)) {
+        missingDLLs.push(dll);
+      }
+    }
+
+    return missingDLLs;
+  }
+
+  /**
    * 启动进程
    */
   async startProcess(): Promise<boolean> {
@@ -111,58 +191,128 @@ export class ProcessManager {
 
       console.log(`Starting process: ${this.processPath}`);
 
-      // 启动进程，捕获stderr用于错误日志
-      const processDir = require('path').dirname(this.processPath);
-      this.currentProcess = spawn(this.processPath, [], {
-        detached: true,
-        stdio: ['ignore', 'ignore', 'pipe'], // 只捕获stderr用于错误日志
-        cwd: processDir,
-      });
-
-      // 收集stderr输出
-      let stderrOutput = '';
-      if (this.currentProcess.stderr) {
-        this.currentProcess.stderr.on('data', (data: Buffer) => {
-          stderrOutput += data.toString();
-        });
+      // 检查文件可访问性
+      const fileCheck = await this.checkFileAccessibility(this.processPath);
+      if (!fileCheck.accessible) {
+        console.error(`File accessibility check failed: ${fileCheck.error}`);
+        console.error(`Process path: ${this.processPath}`);
+        return false;
       }
 
-      // 捕获spawn错误事件
-      this.currentProcess.on('error', (error: Error) => {
-        console.error(`Failed to spawn process: ${error.message}`);
-        console.error(`Process path: ${this.processPath}`);
-        console.error(`Working directory: ${processDir}`);
-        if (stderrOutput) {
-          console.error(`Stderr output: ${stderrOutput}`);
-        }
-      });
+      // 获取进程目录
+      const processDir = path.dirname(this.processPath);
+      console.log(`Working directory: ${processDir}`);
 
-      // 监听进程退出事件（如果进程立即退出）
-      this.currentProcess.on('exit', (code: number | null, signal: string | null) => {
-        if (code !== null) {
-          console.error(`Process exited immediately with code ${code}`);
-          if (signal) {
-            console.error(`Exit signal: ${signal}`);
+      // 检查常见 DLL 文件（仅 Windows）
+      if (process.platform === 'win32') {
+        const missingDLLs = await this.checkCommonDLLs(processDir);
+        if (missingDLLs.length > 0) {
+          console.warn(`Warning: Some common DLLs not found in process directory: ${missingDLLs.join(', ')}`);
+          console.warn('This may not be an error if DLLs are in system PATH or Windows directory');
+        }
+      }
+
+      // 使用 Promise 来等待进程启动结果
+      return new Promise((resolve) => {
+        // 收集stderr输出
+        let stderrOutput = '';
+        let exitCode: number | null = null;
+        let hasExited = false;
+        let isResolved = false; // 防止重复 resolve
+
+        const safeResolve = (value: boolean) => {
+          if (!isResolved) {
+            isResolved = true;
+            resolve(value);
           }
+        };
+
+        // 启动进程，捕获stderr用于错误日志
+        this.currentProcess = spawn(this.processPath, [], {
+          detached: false, // 改为 false，以便更好地捕获错误
+          stdio: ['ignore', 'ignore', 'pipe'], // 只捕获stderr用于错误日志
+          cwd: processDir,
+          env: {
+            ...process.env,
+            PATH: `${processDir}${path.delimiter}${process.env.PATH}`, // 将进程目录添加到 PATH
+          },
+        });
+
+        // 收集stderr输出
+        if (this.currentProcess.stderr) {
+          this.currentProcess.stderr.on('data', (data: Buffer) => {
+            stderrOutput += data.toString();
+          });
+        }
+
+        // 捕获spawn错误事件
+        this.currentProcess.on('error', (error: Error) => {
+          console.error(`Failed to spawn process: ${error.message}`);
+          console.error(`Process path: ${this.processPath}`);
+          console.error(`Working directory: ${processDir}`);
           if (stderrOutput) {
             console.error(`Stderr output: ${stderrOutput}`);
           }
-        }
+          hasExited = true;
+          safeResolve(false);
+        });
+
+        // 监听进程退出事件（如果进程立即退出）
+        this.currentProcess.on('exit', (code: number | null, signal: string | null) => {
+          exitCode = code;
+          hasExited = true;
+
+          if (code !== null && code !== 0) {
+            console.error(`Process exited immediately with code ${code}`);
+            if (signal) {
+              console.error(`Exit signal: ${signal}`);
+            }
+
+            // 诊断 Windows 错误码
+            if (process.platform === 'win32' && code > 0x80000000) {
+              const errorDesc = this.getWindowsErrorDescription(code);
+              console.error(`Error description: ${errorDesc}`);
+            }
+
+            if (stderrOutput) {
+              console.error(`Stderr output: ${stderrOutput}`);
+            } else {
+              console.error(`Stderr: No stderr output`);
+            }
+
+            // 如果进程立即退出，立即返回失败
+            safeResolve(false);
+          }
+        });
+
+        // 等待一段时间检查进程是否还在运行
+        setTimeout(async () => {
+          if (isResolved) {
+            return;
+          }
+
+          if (hasExited) {
+            safeResolve(false);
+            return;
+          }
+
+          const newStatus = await this.checkProcessRunning();
+          if (newStatus.isRunning) {
+            console.log(`Process started successfully (PID: ${newStatus.pid})`);
+            // 如果进程成功启动，将其分离
+            if (this.currentProcess) {
+              this.currentProcess.unref();
+            }
+            safeResolve(true);
+          } else {
+            // 如果进程没有运行，但也没有立即退出，可能是启动失败
+            if (exitCode === null) {
+              console.error(`Process failed to start. Stderr: ${stderrOutput || 'No stderr output'}`);
+            }
+            safeResolve(false);
+          }
+        }, 2000); // 等待 2 秒检查进程状态
       });
-
-      this.currentProcess.unref();
-
-      // 等待一下，检查是否成功启动
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      const newStatus = await this.checkProcessRunning();
-
-      if (newStatus.isRunning) {
-        console.log(`Process started successfully (PID: ${newStatus.pid})`);
-      } else {
-        console.error(`Process failed to start. Stderr: ${stderrOutput || 'No stderr output'}`);
-      }
-
-      return newStatus.isRunning;
     } catch (error: any) {
       console.error('Failed to start process:', error);
       console.error(`Process path: ${this.processPath}`);

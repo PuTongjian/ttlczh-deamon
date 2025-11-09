@@ -76,7 +76,7 @@
       "requestedExecutionLevel": "requireAdministrator",
       "icon": "resources/icon.ico",
       "sign": false,
-      "signDllFiles": false,
+      "signDlls": false,
       "signingHashAlgorithms": []
     },
     "nsis": {

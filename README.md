@@ -73,31 +73,60 @@ npm run dist:win
 如果在 Windows 上构建时遇到以下错误：
 ```
 ERROR: Cannot create symbolic link : 客户端没有所需的特权
+ERROR: Cannot create symbolic link : ...\darwin\10.12\lib\libcrypto.dylib
+ERROR: Cannot create symbolic link : ...\darwin\10.12\lib\libssl.dylib
 ```
 
 这是因为 electron-builder 在解压 winCodeSign 工具时需要创建符号链接，而 Windows 默认需要管理员权限。
 
-**解决方案：**
+**解决方案（按推荐顺序）：**
 
-1. **使用环境变量（推荐）**：构建脚本已配置 `CSC_IDENTITY_AUTO_DISCOVERY=false` 环境变量来跳过代码签名工具下载。如果仍有问题，可以手动设置：
+1. **清理缓存并使用无签名构建（推荐）**：
    ```bash
-   set CSC_IDENTITY_AUTO_DISCOVERY=false
-   npm run dist:win
+   # 清理所有缓存（包括损坏的 winCodeSign 缓存）
+   pnpm run clean:cache
+   
+   # 使用无签名构建（已配置跳过代码签名工具下载）
+   pnpm run dist:win:no-sign
    ```
+   或者直接使用：
+   ```bash
+   pnpm run dist:win
+   ```
+   该命令会自动清理缓存并使用正确的环境变量跳过代码签名。
 
 2. **以管理员权限运行**：使用项目提供的管理员构建脚本：
-   - Windows CMD: `build-admin.bat`
-   - PowerShell: `build-admin.ps1`
+   ```bash
+   # Windows CMD
+   build-admin.bat
+   # 然后选择选项 2（构建但不签名）或选项 4（清理缓存后构建）
+   ```
 
-3. **启用 Windows 开发者模式**（允许非管理员创建符号链接）：
+3. **手动清理 winCodeSign 缓存**：
+   如果上述方法仍无效，可以手动删除缓存目录：
+   ```bash
+   # 删除整个 electron-builder 缓存
+   rmdir /s /q "%LOCALAPPDATA%\electron-builder\Cache"
+   
+   # 或者只删除 winCodeSign 相关缓存
+   rmdir /s /q "%LOCALAPPDATA%\electron-builder\Cache\winCodeSign"
+   ```
+   然后重新运行构建命令。
+
+4. **启用 Windows 开发者模式**（允许非管理员创建符号链接）：
    - 打开"设置" > "隐私和安全性" > "开发者选项"
    - 启用"开发人员模式"
+   - 重启后重新运行构建命令
 
-4. **清理缓存后重试**：
+5. **手动设置环境变量**（如果自动设置未生效）：
    ```bash
-   npm run clean:cache
-   npm run dist:win
+   set CSC_IDENTITY_AUTO_DISCOVERY=false
+   set SKIP_NOTARIZATION=true
+   pnpm run build
+   electron-builder --win
    ```
+
+**注意**：项目已配置 `sign: false` 和 `verifyUpdateCodeSignature: false`，理论上不需要下载 winCodeSign 工具。如果仍然遇到此问题，请先清理缓存。
 
 ## 项目结构
 

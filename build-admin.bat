@@ -52,6 +52,8 @@ if "%choice%"=="1" (
     echo 开始构建（跳过签名）...
     call pnpm run build
     if %errorLevel% equ 0 (
+        set CSC_IDENTITY_AUTO_DISCOVERY=false
+        set SKIP_NOTARIZATION=true
         call electron-builder --win
     )
 ) else if "%choice%"=="3" (
@@ -69,11 +71,18 @@ if "%choice%"=="1" (
         rd /s /q "%CACHE_PATH%"
         echo [√] 缓存已清理
     )
+    set WINCODESIGN_PATH=%LOCALAPPDATA%\electron-builder\Cache\winCodeSign
+    if exist "%WINCODESIGN_PATH%" (
+        rd /s /q "%WINCODESIGN_PATH%"
+        echo [√] winCodeSign 缓存已清理
+    )
     echo.
     echo 开始构建...
     call pnpm run build
     if %errorLevel% equ 0 (
-        call electron-builder
+        set CSC_IDENTITY_AUTO_DISCOVERY=false
+        set SKIP_NOTARIZATION=true
+        call electron-builder --win
     )
 ) else (
     echo 无效的选择

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window>
+  <MenuElement class="menu_item darkbk_button">
+    <HBox name="layout" width="auto" padding="10,0,10,0">
+      <HBox width="auto">
+        <Control name="icon" width="20" height="20" margin="0,0,6,0" valign="center" visible="false" />
+        <Label name="title" valign="center" width="auto" enabled="false" disabledtextcolor="color_BBBBBB" font="system_12" visible="false"/>
+        <Label name="text" valign="center" width="auto" normaltextcolor="white" disabledtextcolor="color_CCCCCC" font="system_12" visible="false"/>
+        <Label class="dark_menu_item_red" name="redtext" width="auto" valign="center" disabledtextcolor="color_CCCCCC" font="system_12" visible="false"/>
+      </HBox>
+      <Option class="option dark_option" name="option" normaltextcolor="white" width="auto" height="auto" font="system_12" valign="center" visible="false" />
+      <CheckBox class="checkbox dark_checkbox" name="checkbox" normaltextcolor="white" width="auto" height="auto" font="system_12" valign="center" visible="false" />
+      <Control />
+      <Control name="tip" width="16" height="16" valign="center" bkimage="svg/icon-menu-tip-dark.svg" visible="false" />
+      <Control name="tag" valign="center" visible="false" margin="4,0,0,0" />
+      <Control name="sub" width="16" height="16" valign="center" bkimage="svg/icon-menu-submenu-dark.svg" visible="false" />
+    </HBox>
+  </MenuElement>
+</Window>

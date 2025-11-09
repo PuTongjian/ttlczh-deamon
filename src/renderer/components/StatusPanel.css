@@ -1,0 +1,67 @@
+.status-panel {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.status-panel h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.status-loading {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+}
+
+.status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.status-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #f9f9f9;
+  border-radius: 6px;
+  border-left: 3px solid #ddd;
+}
+
+.status-item .status-label {
+  font-weight: 500;
+  color: #555;
+}
+
+.status-item .status-value {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-indicator {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.status-indicator.status-ok {
+  color: #4caf50;
+}
+
+.status-indicator.status-error {
+  color: #f44336;
+}
+
+.status-text {
+  font-weight: 500;
+}
+
+.status-details {
+  color: #999;
+  font-size: 12px;
+}

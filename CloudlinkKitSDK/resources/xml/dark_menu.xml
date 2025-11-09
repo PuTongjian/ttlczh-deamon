@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window caption="0,0,0,0" shadowcorner="14,14,14,14" shadowimage="file='../icon/shadow.png' corner='14,14,14,14'">
+  <Menu class="menu dark_menu" bkcolor="bk_wnd_black_0.7_opacity" name="menu_root" />
+</Window>

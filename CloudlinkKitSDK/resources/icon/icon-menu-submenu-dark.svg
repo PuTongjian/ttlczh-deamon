@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>组件/单复选/dark/向右</title>
+    <desc>Created with Sketch.</desc>
+    <g id="组件/单复选/dark/向右" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon/16px/箭头/向右" fill="#CCCCCC">
+            <g transform="translate(1.000000, 3.000000)" id="形状结合">
+                <path d="M8.50005428,1.43566715 C8.77619666,1.43566715 9.00005428,1.65952477 9.00005428,1.93566715 L9.00005428,7.93566715 L8.99767737,7.98343919 C8.99921389,7.99940027 9,8.01558065 9,8.03194465 C9,8.30808702 8.77614237,8.53194465 8.5,8.53194465 L2.5,8.53194465 C2.22385763,8.53194465 2,8.30808702 2,8.03194465 C2,7.75580227 2.22385763,7.53194465 2.5,7.53194465 L8,7.53166715 L8.00005428,1.93566715 C8.00005428,1.65952477 8.22391191,1.43566715 8.50005428,1.43566715 Z" transform="translate(5.500027, 4.983806) rotate(-45.000000) translate(-5.500027, -4.983806) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

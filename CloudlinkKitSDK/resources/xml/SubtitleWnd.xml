@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window caption="0,0,0,100" shadowcorner="0,0,0,0" shadowattached="false" size="634,110" roundcorner="4,4">
+  <Class name="cap_close" width="24" height="24" normalimage="file='../icon/icon-frame-close-hot.svg' dest='2,2,22,22'" fadehot="false" />
+
+  <Box borderround="4,4" height="auto" width="auto">
+    <VBox name="subtitle_box" height="auto" width="auto" minwidth="632" minheight="100">
+      <HBox name ="subtitle_hbox" margin="16,8,16,0" height="auto" minheight="24" >
+        <Control></Control>
+        <Button visible="false" bkcolor="bk_wnd_black_0.7_opacity" class="darkbk_button" name="conf_record" width="auto" height="24" textpadding="8,4,8,3" font="system_12" text="全部字幕" margin="18,0,0,0" cursortype="hand" normaltextcolor="white" borderround="2,2"></Button>
+        <Button visible="false" bkcolor="bk_wnd_black_0.7_opacity" class="darkbk_button"  name="font_size" font="system_13" normaltextcolor="white" width="24" height="24" text="Aa" align="vcenter" margin="15,0,0,0" borderround="2,2"></Button>
+        <Button visible="false" bkcolor="bk_wnd_black_0.7_opacity" class="cap_close darkbk_button button" name="close_btn" margin="10,0,0,0" halign="right" borderround="2,2"></Button>
+      </HBox>
+      <!-- 发言人及文本显示 -->
+      <HBox bkcolor="bk_wnd_black_0.7_opacity" name ="e_hbox" margin="16,8,16,0" height="auto" minheight="30" >
+          <Label name="attendee_name" font="system_16" margin="0,3,0,0" width="auto" minwidth="60" normaltextcolor="color_B7B7B7" align="right"></Label>
+          <Label name="name_semicolon" font="system_16" margin="0,3,0,0" width="auto" text=" : " normaltextcolor="color_B7B7B7" visible="false"></Label>
+          <Box name="languageBox" visible="false" margin="5,3,0,0" height ="auto">
+              <Label name="languageLabel" height ="auto" singleline="false" font="system_20" normaltextcolor="color_B7B7B7" valign="bottom" linelimit="true"></Label>
+          </Box>
+      </HBox>
+    </VBox>
+  </Box>
+
+</Window>

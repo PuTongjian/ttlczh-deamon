@@ -1,0 +1,1383 @@
+<?xml version="1.0"?>
+<mapping>
+	<map>
+		<framework name="input2" output_port_id="input2" />
+		<IR name="input2" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="input1" output_port_id="input1" />
+		<IR name="input1" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Concat_0" output_port_id="367" />
+		<IR name="Concat_0" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1313" output_port_id="1313" />
+		<IR name="1313" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Resize_2" output_port_id="372" />
+		<IR name="Resize_2" output_port_id="4" />
+	</map>
+	<map>
+		<framework name="1164" output_port_id="1164" />
+		<IR name="1164" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_59" output_port_id="1163" />
+		<IR name="Conv_59" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_60" output_port_id="456" />
+		<IR name="Constant_60" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_61" output_port_id="457" />
+		<IR name="Add_61" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_64" output_port_id="460" />
+		<IR name="Clip_64" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_65" output_port_id="461" />
+		<IR name="Constant_65" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_66" output_port_id="462" />
+		<IR name="Div_66" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_67" output_port_id="463" />
+		<IR name="Mul_67" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1167" output_port_id="1167" />
+		<IR name="1167" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_124" output_port_id="1166" />
+		<IR name="Conv_124" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_125" output_port_id="547" />
+		<IR name="Relu_125" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="ReduceMean_126" output_port_id="548" />
+		<IR name="ReduceMean_126" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.0.0.se.conv_reduce.weight" output_port_id="backbone.model.model.blocks.0.0.se.conv_reduce.weight" />
+		<IR name="backbone.model.model.blocks.0.0.se.conv_reduce.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_127" output_port_id="549" />
+		<IR name="Conv_127" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_128" output_port_id="550" />
+		<IR name="Relu_128" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.0.0.se.conv_expand.weight" output_port_id="backbone.model.model.blocks.0.0.se.conv_expand.weight" />
+		<IR name="backbone.model.model.blocks.0.0.se.conv_expand.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_129" output_port_id="551" />
+		<IR name="Conv_129" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="HardSigmoid_130/HardSigmoid_" output_port_id="552" />
+		<IR name="HardSigmoid_130/HardSigmoid_" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="Mul_131" output_port_id="553" />
+		<IR name="Mul_131" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1170" output_port_id="1170" />
+		<IR name="1170" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_132" output_port_id="1169" />
+		<IR name="Conv_132" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1173" output_port_id="1173" />
+		<IR name="1173" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_133" output_port_id="1172" />
+		<IR name="Conv_133" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_134" output_port_id="558" />
+		<IR name="Relu_134" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1176" output_port_id="1176" />
+		<IR name="1176" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_191" output_port_id="1175" />
+		<IR name="Conv_191" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_192" output_port_id="642" />
+		<IR name="Relu_192" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1179" output_port_id="1179" />
+		<IR name="1179" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_193" output_port_id="1178" />
+		<IR name="Conv_193" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1182" output_port_id="1182" />
+		<IR name="1182" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_194" output_port_id="1181" />
+		<IR name="Conv_194" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_195" output_port_id="647" />
+		<IR name="Relu_195" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1185" output_port_id="1185" />
+		<IR name="1185" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_196" output_port_id="1184" />
+		<IR name="Conv_196" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_197" output_port_id="650" />
+		<IR name="Relu_197" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1188" output_port_id="1188" />
+		<IR name="1188" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_198" output_port_id="1187" />
+		<IR name="Conv_198" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Add_199" output_port_id="653" />
+		<IR name="Add_199" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1191" output_port_id="1191" />
+		<IR name="1191" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_200" output_port_id="1190" />
+		<IR name="Conv_200" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_201" output_port_id="656" />
+		<IR name="Constant_201" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_202" output_port_id="657" />
+		<IR name="Add_202" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_205" output_port_id="660" />
+		<IR name="Clip_205" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_206" output_port_id="661" />
+		<IR name="Constant_206" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_207" output_port_id="662" />
+		<IR name="Div_207" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_208" output_port_id="663" />
+		<IR name="Mul_208" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1194" output_port_id="1194" />
+		<IR name="1194" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_265" output_port_id="1193" />
+		<IR name="Conv_265" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_266" output_port_id="747" />
+		<IR name="Constant_266" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_267" output_port_id="748" />
+		<IR name="Add_267" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_270" output_port_id="751" />
+		<IR name="Clip_270" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_271" output_port_id="752" />
+		<IR name="Constant_271" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_272" output_port_id="753" />
+		<IR name="Div_272" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_273" output_port_id="754" />
+		<IR name="Mul_273" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="ReduceMean_274" output_port_id="755" />
+		<IR name="ReduceMean_274" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.2.0.se.conv_reduce.weight" output_port_id="backbone.model.model.blocks.2.0.se.conv_reduce.weight" />
+		<IR name="backbone.model.model.blocks.2.0.se.conv_reduce.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_275" output_port_id="756" />
+		<IR name="Conv_275" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_276" output_port_id="757" />
+		<IR name="Relu_276" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.2.0.se.conv_expand.weight" output_port_id="backbone.model.model.blocks.2.0.se.conv_expand.weight" />
+		<IR name="backbone.model.model.blocks.2.0.se.conv_expand.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_277" output_port_id="758" />
+		<IR name="Conv_277" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="HardSigmoid_278/HardSigmoid_" output_port_id="759" />
+		<IR name="HardSigmoid_278/HardSigmoid_" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="Mul_279" output_port_id="760" />
+		<IR name="Mul_279" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1197" output_port_id="1197" />
+		<IR name="1197" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_280" output_port_id="1196" />
+		<IR name="Conv_280" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1200" output_port_id="1200" />
+		<IR name="1200" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_281" output_port_id="1199" />
+		<IR name="Conv_281" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_282" output_port_id="765" />
+		<IR name="Constant_282" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_283" output_port_id="766" />
+		<IR name="Add_283" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_286" output_port_id="769" />
+		<IR name="Clip_286" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_287" output_port_id="770" />
+		<IR name="Constant_287" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_288" output_port_id="771" />
+		<IR name="Div_288" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_289" output_port_id="772" />
+		<IR name="Mul_289" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1203" output_port_id="1203" />
+		<IR name="1203" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_290" output_port_id="1202" />
+		<IR name="Conv_290" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_291" output_port_id="775" />
+		<IR name="Constant_291" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_292" output_port_id="776" />
+		<IR name="Add_292" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_295" output_port_id="779" />
+		<IR name="Clip_295" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_296" output_port_id="780" />
+		<IR name="Constant_296" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_297" output_port_id="781" />
+		<IR name="Div_297" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_298" output_port_id="782" />
+		<IR name="Mul_298" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="ReduceMean_299" output_port_id="783" />
+		<IR name="ReduceMean_299" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.2.1.se.conv_reduce.weight" output_port_id="backbone.model.model.blocks.2.1.se.conv_reduce.weight" />
+		<IR name="backbone.model.model.blocks.2.1.se.conv_reduce.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_300" output_port_id="784" />
+		<IR name="Conv_300" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_301" output_port_id="785" />
+		<IR name="Relu_301" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.2.1.se.conv_expand.weight" output_port_id="backbone.model.model.blocks.2.1.se.conv_expand.weight" />
+		<IR name="backbone.model.model.blocks.2.1.se.conv_expand.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_302" output_port_id="786" />
+		<IR name="Conv_302" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="HardSigmoid_303/HardSigmoid_" output_port_id="787" />
+		<IR name="HardSigmoid_303/HardSigmoid_" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="Mul_304" output_port_id="788" />
+		<IR name="Mul_304" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1206" output_port_id="1206" />
+		<IR name="1206" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_305" output_port_id="1205" />
+		<IR name="Conv_305" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Add_306" output_port_id="791" />
+		<IR name="Add_306" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1209" output_port_id="1209" />
+		<IR name="1209" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_307" output_port_id="1208" />
+		<IR name="Conv_307" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_308" output_port_id="794" />
+		<IR name="Constant_308" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_309" output_port_id="795" />
+		<IR name="Add_309" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_312" output_port_id="798" />
+		<IR name="Clip_312" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_313" output_port_id="799" />
+		<IR name="Constant_313" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_314" output_port_id="800" />
+		<IR name="Div_314" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_315" output_port_id="801" />
+		<IR name="Mul_315" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1212" output_port_id="1212" />
+		<IR name="1212" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_316" output_port_id="1211" />
+		<IR name="Conv_316" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_317" output_port_id="804" />
+		<IR name="Constant_317" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_318" output_port_id="805" />
+		<IR name="Add_318" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_321" output_port_id="808" />
+		<IR name="Clip_321" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_322" output_port_id="809" />
+		<IR name="Constant_322" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_323" output_port_id="810" />
+		<IR name="Div_323" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_324" output_port_id="811" />
+		<IR name="Mul_324" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="ReduceMean_325" output_port_id="812" />
+		<IR name="ReduceMean_325" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.2.2.se.conv_reduce.weight" output_port_id="backbone.model.model.blocks.2.2.se.conv_reduce.weight" />
+		<IR name="backbone.model.model.blocks.2.2.se.conv_reduce.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_326" output_port_id="813" />
+		<IR name="Conv_326" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_327" output_port_id="814" />
+		<IR name="Relu_327" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.2.2.se.conv_expand.weight" output_port_id="backbone.model.model.blocks.2.2.se.conv_expand.weight" />
+		<IR name="backbone.model.model.blocks.2.2.se.conv_expand.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_328" output_port_id="815" />
+		<IR name="Conv_328" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="HardSigmoid_329/HardSigmoid_" output_port_id="816" />
+		<IR name="HardSigmoid_329/HardSigmoid_" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="Mul_330" output_port_id="817" />
+		<IR name="Mul_330" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1215" output_port_id="1215" />
+		<IR name="1215" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_331" output_port_id="1214" />
+		<IR name="Conv_331" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Add_332" output_port_id="820" />
+		<IR name="Add_332" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1218" output_port_id="1218" />
+		<IR name="1218" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_333" output_port_id="1217" />
+		<IR name="Conv_333" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_334" output_port_id="823" />
+		<IR name="Constant_334" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_335" output_port_id="824" />
+		<IR name="Add_335" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_338" output_port_id="827" />
+		<IR name="Clip_338" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_339" output_port_id="828" />
+		<IR name="Constant_339" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_340" output_port_id="829" />
+		<IR name="Div_340" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_341" output_port_id="830" />
+		<IR name="Mul_341" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1221" output_port_id="1221" />
+		<IR name="1221" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_342" output_port_id="1220" />
+		<IR name="Conv_342" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_343" output_port_id="833" />
+		<IR name="Constant_343" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_344" output_port_id="834" />
+		<IR name="Add_344" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_347" output_port_id="837" />
+		<IR name="Clip_347" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_348" output_port_id="838" />
+		<IR name="Constant_348" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_349" output_port_id="839" />
+		<IR name="Div_349" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_350" output_port_id="840" />
+		<IR name="Mul_350" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="ReduceMean_351" output_port_id="841" />
+		<IR name="ReduceMean_351" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.3.0.se.conv_reduce.weight" output_port_id="backbone.model.model.blocks.3.0.se.conv_reduce.weight" />
+		<IR name="backbone.model.model.blocks.3.0.se.conv_reduce.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_352" output_port_id="842" />
+		<IR name="Conv_352" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_353" output_port_id="843" />
+		<IR name="Relu_353" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.3.0.se.conv_expand.weight" output_port_id="backbone.model.model.blocks.3.0.se.conv_expand.weight" />
+		<IR name="backbone.model.model.blocks.3.0.se.conv_expand.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_354" output_port_id="844" />
+		<IR name="Conv_354" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="HardSigmoid_355/HardSigmoid_" output_port_id="845" />
+		<IR name="HardSigmoid_355/HardSigmoid_" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="Mul_356" output_port_id="846" />
+		<IR name="Mul_356" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1224" output_port_id="1224" />
+		<IR name="1224" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_357" output_port_id="1223" />
+		<IR name="Conv_357" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1227" output_port_id="1227" />
+		<IR name="1227" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_358" output_port_id="1226" />
+		<IR name="Conv_358" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_359" output_port_id="851" />
+		<IR name="Constant_359" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_360" output_port_id="852" />
+		<IR name="Add_360" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_363" output_port_id="855" />
+		<IR name="Clip_363" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_364" output_port_id="856" />
+		<IR name="Constant_364" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_365" output_port_id="857" />
+		<IR name="Div_365" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_366" output_port_id="858" />
+		<IR name="Mul_366" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1230" output_port_id="1230" />
+		<IR name="1230" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_367" output_port_id="1229" />
+		<IR name="Conv_367" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_368" output_port_id="861" />
+		<IR name="Constant_368" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_369" output_port_id="862" />
+		<IR name="Add_369" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_372" output_port_id="865" />
+		<IR name="Clip_372" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_373" output_port_id="866" />
+		<IR name="Constant_373" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_374" output_port_id="867" />
+		<IR name="Div_374" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_375" output_port_id="868" />
+		<IR name="Mul_375" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="ReduceMean_376" output_port_id="869" />
+		<IR name="ReduceMean_376" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.3.1.se.conv_reduce.weight" output_port_id="backbone.model.model.blocks.3.1.se.conv_reduce.weight" />
+		<IR name="backbone.model.model.blocks.3.1.se.conv_reduce.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_377" output_port_id="870" />
+		<IR name="Conv_377" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_378" output_port_id="871" />
+		<IR name="Relu_378" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.3.1.se.conv_expand.weight" output_port_id="backbone.model.model.blocks.3.1.se.conv_expand.weight" />
+		<IR name="backbone.model.model.blocks.3.1.se.conv_expand.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_379" output_port_id="872" />
+		<IR name="Conv_379" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="HardSigmoid_380/HardSigmoid_" output_port_id="873" />
+		<IR name="HardSigmoid_380/HardSigmoid_" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="Mul_381" output_port_id="874" />
+		<IR name="Mul_381" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1233" output_port_id="1233" />
+		<IR name="1233" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_382" output_port_id="1232" />
+		<IR name="Conv_382" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Add_383" output_port_id="877" />
+		<IR name="Add_383" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1236" output_port_id="1236" />
+		<IR name="1236" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_384" output_port_id="1235" />
+		<IR name="Conv_384" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_385" output_port_id="880" />
+		<IR name="Constant_385" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_386" output_port_id="881" />
+		<IR name="Add_386" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_389" output_port_id="884" />
+		<IR name="Clip_389" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_390" output_port_id="885" />
+		<IR name="Constant_390" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_391" output_port_id="886" />
+		<IR name="Div_391" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_392" output_port_id="887" />
+		<IR name="Mul_392" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1239" output_port_id="1239" />
+		<IR name="1239" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_449" output_port_id="1238" />
+		<IR name="Conv_449" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_450" output_port_id="971" />
+		<IR name="Constant_450" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_451" output_port_id="972" />
+		<IR name="Add_451" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_454" output_port_id="975" />
+		<IR name="Clip_454" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_455" output_port_id="976" />
+		<IR name="Constant_455" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_456" output_port_id="977" />
+		<IR name="Div_456" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_457" output_port_id="978" />
+		<IR name="Mul_457" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="ReduceMean_458" output_port_id="979" />
+		<IR name="ReduceMean_458" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.4.0.se.conv_reduce.weight" output_port_id="backbone.model.model.blocks.4.0.se.conv_reduce.weight" />
+		<IR name="backbone.model.model.blocks.4.0.se.conv_reduce.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_459" output_port_id="980" />
+		<IR name="Conv_459" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_460" output_port_id="981" />
+		<IR name="Relu_460" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.4.0.se.conv_expand.weight" output_port_id="backbone.model.model.blocks.4.0.se.conv_expand.weight" />
+		<IR name="backbone.model.model.blocks.4.0.se.conv_expand.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_461" output_port_id="982" />
+		<IR name="Conv_461" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="HardSigmoid_462/HardSigmoid_" output_port_id="983" />
+		<IR name="HardSigmoid_462/HardSigmoid_" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="Mul_463" output_port_id="984" />
+		<IR name="Mul_463" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1242" output_port_id="1242" />
+		<IR name="1242" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_464" output_port_id="1241" />
+		<IR name="Conv_464" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1245" output_port_id="1245" />
+		<IR name="1245" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_465" output_port_id="1244" />
+		<IR name="Conv_465" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_466" output_port_id="989" />
+		<IR name="Constant_466" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_467" output_port_id="990" />
+		<IR name="Add_467" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_470" output_port_id="993" />
+		<IR name="Clip_470" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_471" output_port_id="994" />
+		<IR name="Constant_471" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_472" output_port_id="995" />
+		<IR name="Div_472" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_473" output_port_id="996" />
+		<IR name="Mul_473" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1248" output_port_id="1248" />
+		<IR name="1248" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_474" output_port_id="1247" />
+		<IR name="Conv_474" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_475" output_port_id="999" />
+		<IR name="Constant_475" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_476" output_port_id="1000" />
+		<IR name="Add_476" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_479" output_port_id="1003" />
+		<IR name="Clip_479" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_480" output_port_id="1004" />
+		<IR name="Constant_480" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_481" output_port_id="1005" />
+		<IR name="Div_481" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_482" output_port_id="1006" />
+		<IR name="Mul_482" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="ReduceMean_483" output_port_id="1007" />
+		<IR name="ReduceMean_483" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.4.1.se.conv_reduce.weight" output_port_id="backbone.model.model.blocks.4.1.se.conv_reduce.weight" />
+		<IR name="backbone.model.model.blocks.4.1.se.conv_reduce.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_484" output_port_id="1008" />
+		<IR name="Conv_484" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_485" output_port_id="1009" />
+		<IR name="Relu_485" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.4.1.se.conv_expand.weight" output_port_id="backbone.model.model.blocks.4.1.se.conv_expand.weight" />
+		<IR name="backbone.model.model.blocks.4.1.se.conv_expand.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_486" output_port_id="1010" />
+		<IR name="Conv_486" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="HardSigmoid_487/HardSigmoid_" output_port_id="1011" />
+		<IR name="HardSigmoid_487/HardSigmoid_" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="Mul_488" output_port_id="1012" />
+		<IR name="Mul_488" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1251" output_port_id="1251" />
+		<IR name="1251" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_489" output_port_id="1250" />
+		<IR name="Conv_489" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Add_490" output_port_id="1015" />
+		<IR name="Add_490" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1254" output_port_id="1254" />
+		<IR name="1254" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_491" output_port_id="1253" />
+		<IR name="Conv_491" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_492" output_port_id="1018" />
+		<IR name="Constant_492" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_493" output_port_id="1019" />
+		<IR name="Add_493" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_496" output_port_id="1022" />
+		<IR name="Clip_496" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_497" output_port_id="1023" />
+		<IR name="Constant_497" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_498" output_port_id="1024" />
+		<IR name="Div_498" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_499" output_port_id="1025" />
+		<IR name="Mul_499" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1257" output_port_id="1257" />
+		<IR name="1257" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_500" output_port_id="1256" />
+		<IR name="Conv_500" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_501" output_port_id="1028" />
+		<IR name="Constant_501" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_502" output_port_id="1029" />
+		<IR name="Add_502" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_505" output_port_id="1032" />
+		<IR name="Clip_505" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_506" output_port_id="1033" />
+		<IR name="Constant_506" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_507" output_port_id="1034" />
+		<IR name="Div_507" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_508" output_port_id="1035" />
+		<IR name="Mul_508" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="ReduceMean_509" output_port_id="1036" />
+		<IR name="ReduceMean_509" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.4.2.se.conv_reduce.weight" output_port_id="backbone.model.model.blocks.4.2.se.conv_reduce.weight" />
+		<IR name="backbone.model.model.blocks.4.2.se.conv_reduce.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_510" output_port_id="1037" />
+		<IR name="Conv_510" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_511" output_port_id="1038" />
+		<IR name="Relu_511" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="backbone.model.model.blocks.4.2.se.conv_expand.weight" output_port_id="backbone.model.model.blocks.4.2.se.conv_expand.weight" />
+		<IR name="backbone.model.model.blocks.4.2.se.conv_expand.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_512" output_port_id="1039" />
+		<IR name="Conv_512" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="HardSigmoid_513/HardSigmoid_" output_port_id="1040" />
+		<IR name="HardSigmoid_513/HardSigmoid_" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="Mul_514" output_port_id="1041" />
+		<IR name="Mul_514" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1260" output_port_id="1260" />
+		<IR name="1260" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_515" output_port_id="1259" />
+		<IR name="Conv_515" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Add_516" output_port_id="1044" />
+		<IR name="Add_516" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1263" output_port_id="1263" />
+		<IR name="1263" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_517" output_port_id="1262" />
+		<IR name="Conv_517" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Constant_518" output_port_id="1047" />
+		<IR name="Constant_518" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Add_519" output_port_id="1048" />
+		<IR name="Add_519" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Clip_522" output_port_id="1051" />
+		<IR name="Clip_522" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Constant_523" output_port_id="1052" />
+		<IR name="Constant_523" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Div_524" output_port_id="1053" />
+		<IR name="Div_524" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Mul_525" output_port_id="1054" />
+		<IR name="Mul_525" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1266" output_port_id="1266" />
+		<IR name="1266" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_526" output_port_id="1265" />
+		<IR name="Conv_526" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_527" output_port_id="1057" />
+		<IR name="Relu_527" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="GlobalAveragePool_528/reduce" output_port_id="1058" />
+		<IR name="GlobalAveragePool_528/reduce" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="lr_branch.block.aspp2.1.weight" output_port_id="lr_branch.block.aspp2.1.weight" />
+		<IR name="lr_branch.block.aspp2.1.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_529" output_port_id="1059" />
+		<IR name="Conv_529" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Sigmoid_530" output_port_id="1060" />
+		<IR name="Sigmoid_530" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Mul_531" output_port_id="1061" />
+		<IR name="Mul_531" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1379" output_port_id="1379" />
+		<IR name="1379" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Resize_533" output_port_id="1066" />
+		<IR name="Resize_533" output_port_id="4" />
+	</map>
+	<map>
+		<framework name="1269" output_port_id="1269" />
+		<IR name="1269" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_534" output_port_id="1268" />
+		<IR name="Conv_534" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_535" output_port_id="1069" />
+		<IR name="Relu_535" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1380" output_port_id="1380" />
+		<IR name="1380" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Resize_537" output_port_id="1074" />
+		<IR name="Resize_537" output_port_id="4" />
+	</map>
+	<map>
+		<framework name="1272" output_port_id="1272" />
+		<IR name="1272" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_538" output_port_id="1271" />
+		<IR name="Conv_538" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_539" output_port_id="1077" />
+		<IR name="Relu_539" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1383" output_port_id="1383" />
+		<IR name="1383" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Resize_583" output_port_id="1141" />
+		<IR name="Resize_583" output_port_id="4" />
+	</map>
+	<map>
+		<framework name="1308" output_port_id="1308" />
+		<IR name="1308" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_584" output_port_id="1307" />
+		<IR name="Conv_584" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_585" output_port_id="1144" />
+		<IR name="Relu_585" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1384" output_port_id="1384" />
+		<IR name="1384" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Resize_587" output_port_id="1149" />
+		<IR name="Resize_587" output_port_id="4" />
+	</map>
+	<map>
+		<framework name="Slice_544" output_port_id="1082" />
+		<IR name="Slice_544" output_port_id="4" />
+	</map>
+	<map>
+		<framework name="MaxPool_545" output_port_id="1083" />
+		<IR name="MaxPool_545" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1275" output_port_id="1275" />
+		<IR name="1275" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_547" output_port_id="1274" />
+		<IR name="Conv_547" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_548" output_port_id="1087" />
+		<IR name="Relu_548" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Concat_549" output_port_id="1088" />
+		<IR name="Concat_549" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1278" output_port_id="1278" />
+		<IR name="1278" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_550" output_port_id="1277" />
+		<IR name="Conv_550" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_551" output_port_id="1091" />
+		<IR name="Relu_551" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1281" output_port_id="1281" />
+		<IR name="1281" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_552" output_port_id="1280" />
+		<IR name="Conv_552" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_553" output_port_id="1094" />
+		<IR name="Relu_553" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Concat_554" output_port_id="1095" />
+		<IR name="Concat_554" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1284" output_port_id="1284" />
+		<IR name="1284" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_555" output_port_id="1283" />
+		<IR name="Conv_555" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_556" output_port_id="1098" />
+		<IR name="Relu_556" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1381" output_port_id="1381" />
+		<IR name="1381" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Resize_558" output_port_id="1103" />
+		<IR name="Resize_558" output_port_id="4" />
+	</map>
+	<map>
+		<framework name="MaxPool_546" output_port_id="1084" />
+		<IR name="MaxPool_546" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Concat_559" output_port_id="1104" />
+		<IR name="Concat_559" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="1287" output_port_id="1287" />
+		<IR name="1287" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_560" output_port_id="1286" />
+		<IR name="Conv_560" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_561" output_port_id="1107" />
+		<IR name="Relu_561" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1290" output_port_id="1290" />
+		<IR name="1290" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_562" output_port_id="1289" />
+		<IR name="Conv_562" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_563" output_port_id="1110" />
+		<IR name="Relu_563" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1293" output_port_id="1293" />
+		<IR name="1293" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_564" output_port_id="1292" />
+		<IR name="Conv_564" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_565" output_port_id="1113" />
+		<IR name="Relu_565" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1382" output_port_id="1382" />
+		<IR name="1382" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Resize_567" output_port_id="1118" />
+		<IR name="Resize_567" output_port_id="4" />
+	</map>
+	<map>
+		<framework name="Concat_568" output_port_id="1119" />
+		<IR name="Concat_568" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1296" output_port_id="1296" />
+		<IR name="1296" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_569" output_port_id="1295" />
+		<IR name="Conv_569" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_570" output_port_id="1122" />
+		<IR name="Relu_570" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1299" output_port_id="1299" />
+		<IR name="1299" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_571" output_port_id="1298" />
+		<IR name="Conv_571" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_572" output_port_id="1125" />
+		<IR name="Relu_572" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1302" output_port_id="1302" />
+		<IR name="1302" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_573" output_port_id="1301" />
+		<IR name="Conv_573" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_574" output_port_id="1128" />
+		<IR name="Relu_574" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1305" output_port_id="1305" />
+		<IR name="1305" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_575" output_port_id="1304" />
+		<IR name="Conv_575" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_576" output_port_id="1131" />
+		<IR name="Relu_576" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Concat_588" output_port_id="1150" />
+		<IR name="Concat_588" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="1311" output_port_id="1311" />
+		<IR name="1311" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_589" output_port_id="1310" />
+		<IR name="Conv_589" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="Relu_590" output_port_id="1153" />
+		<IR name="Relu_590" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="1385" output_port_id="1385" />
+		<IR name="1385" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Resize_592" output_port_id="1158" />
+		<IR name="Resize_592" output_port_id="4" />
+	</map>
+	<map>
+		<framework name="Slice_581" output_port_id="1136" />
+		<IR name="Slice_581" output_port_id="4" />
+	</map>
+	<map>
+		<framework name="Concat_593" output_port_id="1159" />
+		<IR name="Concat_593" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="f_branch.conv_f.0.layers.0.weight" output_port_id="f_branch.conv_f.0.layers.0.weight" />
+		<IR name="f_branch.conv_f.0.layers.0.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="Conv_594" output_port_id="1160" />
+		<IR name="Conv_594" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="DepthToSpace_595" output_port_id="1161" />
+		<IR name="DepthToSpace_595" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="output" output_port_id="output" />
+		<IR name="output" output_port_id="1" />
+	</map>
+</mapping>

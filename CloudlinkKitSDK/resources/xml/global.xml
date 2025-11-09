@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Global>
+  <Font id="system_10" name="Microsoft YaHei" size="10" />
+  <Font id="system_11" name="Microsoft YaHei" size="11" />
+  <Font id="system_12" name="Microsoft YaHei" size="12" />
+  <Font id="system_13" name="Microsoft YaHei" size="13" />
+  <Font id="system_14" name="Microsoft YaHei" size="14" default="true"/>
+  <Font id="system_16" name="Microsoft YaHei" size="16" />
+  <Font id="system_16b" name="Microsoft YaHei" size="16" bold="true" />
+  <Font id="system_18" name="Microsoft YaHei" size="18" />
+  <Font id="system_18b" name="Microsoft YaHei" size="18" bold="true" />
+  <Font id="system_20" name="Microsoft YaHei" size="20"/>
+  <Font id="system_24" name="Microsoft YaHei" size="24"/>
+  <Font id="system_28" name="Microsoft YaHei" size="28"/>
+  <Font id="system_28b" name="Microsoft YaHei" size="28" bold="true" />
+  <Font id="system_14b" name="Microsoft YaHei" size="14" bold="true"/>
+  <Font id="system_12b" name="Microsoft YaHei" size="12" bold="true" />
+
+  <!--窗口常用背景色-->
+  <TextColor name="bk_wnd_black" value="#ff000000"/>
+  <TextColor name="bk_wnd_black_0.8_opacity" value="#CC000000"/>
+  <TextColor name="bk_wnd_black_0.7_opacity" value="#B2000000"/>
+  <TextColor name="bk_wnd_black_0.6_opacity" value="#99000000"/>
+  <TextColor name="bk_wnd_black_0.4_opacity" value="#66000000"/>
+  <TextColor name="color_EEEEEE" value="#ffeeeeee"/>
+  <TextColor name="color_2F2F2F" value="#ff2f2f2f"/>
+  <TextColor name="color_F36B6B" value="#fff36b6b"/>
+  <TextColor name="color_6EDE8E" value="#ff6ede8e"/>
+  <TextColor name="textdefaultcolor" value="#ff333333"/>
+  <TextColor name="textdefaultdisablecolor" value="#ffa1aebc"/>
+
+  <TextColor name="color_666666" value="#ff666666" />
+
+  <TextColor name="white" value="#ffffffff"/>
+
+  <TextColor name="color_0.9_3a3b3f" value="#e63a3b3f" />
+  <TextColor name="color_0D94FF" value="#ff0d94ff"/>
+  <TextColor name="color_F000" value="#ff000000" />
+  <TextColor name="color_F333" value="#ff333333" />
+  <TextColor name="color_F999" value="#ff999999" />
+  <TextColor name="color_FDDD" value="#ffdddddd" />
+  <TextColor name="color_F44B4B" value="#fff44b4b" />
+  <TextColor name="color_FF465B" value="#ffff465b" />
+  <TextColor name="color_1F1F1F" value="#ff1f1f1f" />
+  <TextColor name="color_F34B4B" value="#fff34b4b" />
+  <TextColor name="color_6ECE7E" value="#ff6ece7e" />
+  <TextColor name="color_FFAB00" value="#ffffab00" />
+  <TextColor name="color_EEF0F6" value="#ffeef0f6"/>
+  <TextColor name="color_FFF9F3" value="#fffff9f3" />
+  <TextColor name="color_66BBFF" value="#ff66bbff" />
+  <TextColor name="color_B7B7B7" value="#ffb7b7b7" />
+
+  <!-- 主要按钮颜色 -->
+  <TextColor name="color_0D94FF" value="#ff0d94ff" />
+  <TextColor name="color_3DA9FF" value="#ff3da9ff" />
+  <TextColor name="color_0A76CC" value="#ff0a76cc" />
+  <TextColor name="color_E60D94FF" value="#e60d94ff" />
+  <TextColor name="color_E63DA9FF" value="#e63da9ff" />
+  <TextColor name="color_E60A76CC" value="#e60a76cc" />
+  <TextColor name="color_333333" value="#ff333333" />
+  <TextColor name="color_4A4A4A" value="#ff4a4a4a" />
+  <TextColor name="color_999999" value="#ff999999" />
+  <TextColor name="color_F3F5F9" value="#fff3f5f9" />
+  <TextColor name="color_ECF1F7" value="#ffecf1f7" />
+  <!-- 菜单颜色 -->
+  <TextColor name="color_F0F0F0" value="#fff0f0f0" />
+  <TextColor name="color_E6E6E6" value="#ffe6e6e6" />
+  <TextColor name="color_FBFBFF" value="#fffbfbff" />
+
+  <TextColor name="color_BBBBBB" value="#ffbbbbbb" />
+  <TextColor name="color_CCCCCC" value="#ffcccccc" />
+  <TextColor name="color_DCDDE0" value="#ffdcdde0" />
+  <TextColor name="color_FBFBFF" value="#fffbfbff" />
+  <TextColor name="color_F5F6FA" value="#fff5f6fa" />
+  <!-- 规范库样式 -->
+  <Class name="text_icon_strong_reminder" normaltextcolor="color_666666" hottextcolor="color_999999" pushedtextcolor="color_333333" disabledtextcolor="color_CCCCCC" singleline="true" endellipsis="false"/>
+  <Class name="text_icon_weak_reminder" normaltextcolor="color_999999" hottextcolor="color_666666" pushedtextcolor="color_333333" disabledtextcolor="color_CCCCCC" singleline="true" endellipsis="false"/>
+  <!-- 相关按钮样式 -->
+  <Class name="btn_primary" normalcolor="color_0D94FF" hotcolor="color_3DA9FF" pushedcolor="color_0A76CC" disabledcolor="color_CCCCCC" normaltextcolor="white" />
+  <Class name="text_btn_primary" normaltextcolor="color_0D94FF" hottextcolor="color_3DA9FF" pushedtextcolor="color_0A76CC" disabledtextcolor="color_CCCCCC"/>
+  <Class name="btn_primary_a90" normalcolor="color_E60D94FF" hotcolor="color_E63DA9FF" pushedcolor="color_E60A76CC" disabledcolor="color_CCCCCC" normaltextcolor="white" />
+  <Class name="btn_primary_a91" normalcolor="color_4A4A4A" hotcolor="color_999999" pushedcolor="color_666666" disabledcolor="color_CCCCCC" normaltextcolor="white" />
+  <Class name="btn_primary_a92" normalcolor="white" bordersize="1" normalbordercolor="color_999999" normaltextcolor="color_666666" />
+  <Class name="btn_middle_level" normalcolor="white" hotcolor="white" pushedcolor="white" disabledcolor="white"
+         normalbordercolor="color_0D94FF" hotbordercolor="color_3DA9FF" pushedbordercolor="color_0A76CC" disabledbordercolor="color_CCCCCC" bordersize="1"
+         normaltextcolor="color_E60D94FF" hottextcolor="color_E63DA9FF" pushedtextcolor="color_E60A76CC" disabledtextcolor="color_CCCCCC"/>
+  <Class name="btn_secondary" disabledcolor="white"
+         normalbordercolor="color_CCCCCC" hotbordercolor="color_3DA9FF" pushedbordercolor="color_0A76CC" bordersize="1"
+         normaltextcolor="color_666666" hottextcolor="color_3DA9FF" pushedtextcolor="color_0A76CC" fadehot="false"/>
+
+  <TextColor name="bk_listitem_hovered" value="#fff0f2f5"/>
+  <TextColor name="bk_listitem_selected" value="#ffe4e7eb"/>
+
+  <Class name="menu" width="auto" height="auto" maxheight="380" vscrollbar="true" padding="0,4,0,4" fillround="6,6"/>
+  <Class name="translation_menu" width="auto" height="auto" maxheight="300" vscrollbar="true" padding="0,4,0,4"/>
+  <Class name="light_menu" bkcolor="color_FBFBFF" />
+  <Class name="dark_menu" bkcolor="color_3F3F3F" />
+  <Class name="menu_item" height="30" minwidth="136" maxwidth="250" width="auto" fadehot="false" />
+  <Class name="light_menu_item_red" normaltextcolor="color_F34B4B" />
+  <Class name="dark_menu_item_red" normaltextcolor="color_F56F6F" />
+  <Class name="menu_tag_new" width="30" height="14" bkimage="svg/icon-menu-new.svg" />
+  <Class name="menu_tag_beta" width="30" height="14" align="vcenter" bkimage="svg/icon-menu-beta.svg" />
+
+  <Class name="checkbox" textpadding="22,0,2,0"/>
+  <Class name="light_checkbox" normalimage="file='svg/icon-checkbox-unchecked-light.svg' dest='0,1,16,17'" selectednormalimage="file='svg/icon-checkbox-checked.svg' dest='0,1,16,17'" />
+  <Class name="dark_checkbox" normalimage="file='svg/icon-checkbox-unchecked-dark.svg' dest='0,1,16,17'" selectednormalimage="file='svg/icon-checkbox-checked.svg' dest='0,1,16,17'" />
+  <Class name="option" textpadding="22,0,2,0" align="left"/>
+  <Class name="light_option" normalimage="file='svg/icon-option-unchecked-light.svg' dest='0,1,16,17'" selectednormalimage="file='svg/icon-option-checked.svg' dest='0,1,16,17'" />
+  <Class name="dark_option" normalimage="file='../icon/icon-option-unchecked-dark.svg' dest='0,1,16,17'" selectednormalimage="file='../icon/icon-option-checked.svg' dest='0,1,16,17'" />
+
+  <Class name="list_item" height="48" width="stretch" normalcolor="color_FAFBFF" hotcolor="color_F3F5F9" pushedcolor="color_ECF1F7" fadehot="false" />
+  <Class name="list_btn_text" font="system_12" textpadding="0,0,1,1" normaltextcolor="white" singleline="true" valign="center" endellipsis="false"/>
+  <Class name="list_btn_text_gray" font="system_12" textpadding="0,0,1,1" singleline="true" valign="center" endellipsis="false"/>
+  <Class name="list_btn_style" width="auto" height="26" borderround="2,2" visible="false" textpadding="10,0,10,0" />
+  <Class name="list_group" height="30" width="stretch" bkcolor="color_FAFBFF" fadehot="false" padding="0,2,0,0"/>
+  <Class name="input" wanttab="false" bordersize="0,0,0,1" normalbordercolor="color_CCCCCC" hotbordercolor="color_0D94FF" padding="6,5,5,6" />
+  <Class name="prompt" promptmode="true" promptcolor="color_CCCCCC" />
+  <Class name="qoscell" font="system_12" normaltextcolor="white" width="75" height="stretch" align="vcenter" bordersize="1" bordercolor="white" ellipsis="path" />
+  <Class name="participant_search_bar" normalbordercolor="color_CCCCCC" hotbordercolor="color_0D94FF" pushedbordercolor="color_0D94FF" bordersize="1" borderround="2,2" fadehot="false"/>
+  <Class name="participant_webinar_switch_btn" normaltextcolor="color_999999" hottextcolor="color_0D94FF" pushedtextcolor="color_333333" disabledtextcolor="color_CCCCCC" singleline="true" endellipsis="false"/>
+  <!-- 通用按钮颜色 -->
+  <TextColor name="color_.14_818A99" value="#24818A99" />
+  <TextColor name="color_.24_818A99" value="#3d818A99" />
+  <TextColor name="color_.24_white" value="#3dffffff" />
+  <TextColor name="color_.14_white" value="#24ffffff" />
+  <TextColor name="color_.6_white" value="#99ffffff" />
+  <TextColor name="color_.8_white" value="#ccffffff" />
+  <TextColor name="color_BF2A32" value="#ffbf2a32" />
+  <TextColor name="color_F26161" value="#fff26161" />
+  <TextColor name="color_C23C3C" value="#ffc23c3c" />
+  <TextColor name="color_0.01_white" value="#01ffffff" />
+  <TextColor name="color_.7_3F3F3F" value="#b33f3f3f" />
+
+  <!-- 浅色背景上的按钮 -->
+  <Class name="lightbk_button" hotcolor="color_.14_818A99" pushedcolor="color_.24_818A99" selectednormalcolor="color_.24_818A99" fadehot="false" />
+  <!-- 深色背景上的按钮 -->
+  <Class name="darkbk_button" hotcolor="color_.24_white" pushedcolor="color_.14_white" selectednormalcolor="color_.14_white" fadehot="false" />
+  <!-- 浅色背景上的红色按钮，如：关闭 -->
+  <Class name="lightbk_redbutton" hotcolor="color_F56F6F" pushedcolor="color_C23C3C" fadehot="false"/>
+  <!-- 深色背景上的红色按钮，如：离会 -->
+  <Class name="darkbk_redbutton" normalcolor="color_BF2A32" hotcolor="color_F26161" pushedcolor="color_C23C3C" fadehot="false"/>
+
+  <Class name="button" cursortype="hand" fadehot="false" />
+  <Class name="icon_btn_dark" hotcolor="color_.24_white" pushedcolor="color_.14_white" selectednormalcolor="color_999999" fadehot="false" />
+
+  <Class name="cbi_light" clsicon="cbi_icon_light" clssplit="cbi_split_light" clstext="cbi_text_light" clsbtn="lightbk_button" />
+  <Class name="cbi_dark" clsicon="cbi_icon_dark" clssplit="cbi_split_dark" clstext="cbi_text_dark" clsbtn="darkbk_button" />
+  <Class name="cbi_split_light" bkimage="svg/conf_cap_splite.svg" />
+  <Class name="cbi_icon_light" bkimage="svg/icon-title-more.svg" />
+  <Class name="cbi_text_light" normaltextcolor="color_666666" />
+  <Class name="cbi_split_dark" bkimage="svg/conf_cap_splite_dark.svg" />
+  <Class name="cbi_icon_dark" bkimage="svg/icon-down-light.svg" />
+  <Class name="cbi_text_dark" normaltextcolor="color_FAFBFF" />
+  <!-- 标题栏 -->
+  <TextColor name="color_1F1F1F" value="#ff1f1f1f" />
+  <TextColor name="color_FAFBFF" value="#fffafbff" />
+  <TextColor name="color_F56F6F" value="#fff56f6f" />
+  <TextColor name="color_C23C3C" value="#ffc23c3c" />
+  <TextColor name="color_8BD898" value="#ff8bd898" />
+  <TextColor name="color_555555" value="#ff555555" />
+  <Class name="icon_minimize" normalimage="svg/icon-frame-minimize.svg" width="20" height="20" halign="center" valign="center" />
+  <Class name="icon_maximize" normalimage="svg/icon-frame-maximize.svg" width="20" height="20" halign="center" valign="center" />
+  <Class name="icon_restore" normalimage="svg/icon-frame-restore.svg" width="20" height="20" halign="center" valign="center" />
+  <Class name="icon_close" normalimage="svg/icon-frame-close.svg" hotimage="svg/icon-frame-close-hot.svg" width="20" height="20" halign="center" valign="center" />
+  <Class name="signal_level_0" bkimage="svg/signal-level-0.svg" />
+  <Class name="signal_level_1" bkimage="svg/signal-level-1.svg" />
+  <Class name="signal_level_2" bkimage="svg/signal-level-2.svg" />
+  <Class name="signal_level_3" bkimage="svg/signal-level-3.svg" />
+
+  <!-- 会控工具条 -->
+  <TextColor name="color_3F3F3F" value="#ff3f3f3f" />
+  <TextColor name="color_0.8_3F3F3F" value="#cc3f3f3f" />
+  <Class name="conf_mask_menubar" height="32" bkcolor="color_0.8_3F3F3F"/>
+  <Class name="conf_viewoption" height="100" width="100" textpadding="0,76,0,0" normaltextcolor="white" selectedforenormalimage="file='svg/conf-viewitem-border.svg' dest='0,0,100,68'" fadehot="false" />
+  <Class name="gallery_view" normalimage="file='svg/galleryview-normal.svg' dest='0,0,100,68'" hotimage="file='svg/galleryview-sel-hot.svg' dest='0,0,100,68'" selectednormalimage="file='svg/galleryview-sel-hot.svg' dest='0,0,100,68'" />
+  <Class name="speaker_view" normalimage="file='svg/speakerview-normal.svg' dest='0,0,100,68'" hotimage="file='svg/speakerview-sel-hot.svg' dest='0,0,100,68'" selectednormalimage="file='svg/speakerview-sel-hot.svg' dest='0,0,100,68'" />
+  <Class name="pip_view" normalimage="file='svg/pipview-normal.svg' dest='0,0,100,68'" hotimage="file='svg/pipview-sel-hot.svg' dest='0,0,100,68'" selectednormalimage="file='svg/pipview-sel-hot.svg' dest='0,0,100,68'" />
+  <Class name="icon_pipview" bkimage="svg/icon-pipview.svg" />
+  <Class name="icon_galleryview" bkimage="svg/icon-galleryview.svg" />
+  <Class name="icon_speakerview" bkimage="svg/icon-speakerview.svg" />
+  <Class name="icon_broadcastview" bkimage="svg/icon-broadcastview.svg" />
+  <Class name="icon_voiceactivatedview" bkimage="svg/icon-voiceactivatedview.svg" />
+  <Class name="conf_fullscreen" bkimage="file='svg/icon-fullscreen.svg' dest='3,3,23,23'" tooltiptextid="LANG_NATIVE_FULL_SCREEN" />
+  <Class name="conf_unfullscreen" bkimage="file='svg/icon-unfullscreen.svg' dest='3,3,23,23'" tooltiptextid="LANG_NATIVE_EXIT_FULL_SCREEN" />
+  <Class name="icon_switchview" bkimage="svg/icon-switchview.svg" />
+  
+  <!-- "更多"菜单的图标 -->
+  <Class name="mmi_invite" bkimage="svg/icon-invite.svg" />
+  <Class name="mmi_record" bkimage="svg/icon-record-start.svg" />
+  <Class name="mmi_subtitle_translate" bkimage="svg/icon-subtitle-trans.svg" />
+  <Class name="mmi_subtitle" bkimage="svg/icon-subtitle.svg" />
+  <Class name="mmi_portal" bkimage="svg/icon-portal.svg" />
+  <Class name="mmi_feedback" bkimage="svg/icon-feedback.svg" />
+  <Class name="mmi_netcheck" bkimage="svg/icon-netcheck.svg" />
+  <Class name="mmi_security" bkimage="svg/icon-security-white-btn.svg" />
+  <Class name="mmi_invite" bkimage="svg/icon-invite.svg" />
+  <Class name="mmi_pip" bkimage="svg/icon-pipview.svg" />
+  <Class name="mmi_transtovideo" bkimage="svg/icon-trans-to-video.svg" />
+  <Class name="mmi_transtoaudio" bkimage="svg/icon-trans-to-audio.svg" />
+  <Class name="mmi_dualscreen" bkimage="svg/icon-dual-screen.svg" />
+  <Class name="mmi_leave" bkimage="svg/icon-leave.svg" />
+  <Class name="mmi_hook_switch" bkimage="svg/icon-hook-switch.svg" />
+  <Class name="mmi_rename" bkimage="svg/icon-rename.svg" />
+  <Class name="mmi_rename_disabled" bkimage="svg/icon-rename-disabled.svg" />
+
+  <!-- 音视频设备 -->
+  <Class name="combo_list" bkcolor="color_FAFBFF" vscrollbar="true" borderround="4,4" bordersize="1" bordercolor="color_FDDD"/>
+  <Class name="combo" height="24" bordersize="0,0,0,1" normalbordercolor="color_FDDD" hotbordercolor="color_0D94FF" pushedbordercolor="color_0A76CC"
+         normalimage="file='svg/combo/normal.svg' dest='202,2,220,20'" hotimage="file='svg/combo/hover.svg' dest='202,2,220,20'" pushedimage="file='svg/combo/pressed.svg' dest='202,2,220,20'" />
+  <Class name="cam_combo" height="24" bordersize="0,0,0,1" normalbordercolor="color_FDDD" hotbordercolor="color_0D94FF" pushedbordercolor="color_0A76CC"
+         normalimage="file='svg/combo/normal.svg' dest='272,2,290,20'" hotimage="file='csvg/ombo/hover.svg' dest='272,2,290,20'" pushedimage="file='svg/combo/pressed.svg' dest='272,2,290,20'" />
+  <Class name="combo_listitem" pushedcolor="color_.24_818A99" fadehot="false"/>
+
+  <!--进度条通用样式, 注意进度条的值使用`value`属性-->
+  <Class name="progress_blue" valign="center" _value="0" bkimage="images/progress/progress_blue_bg.png" height="3" width="stretch" hor="true" max="100" min="0" progressimage="images/progress/progress_blue_fg.png"/>
+
+  <!-- 会控按钮颜色 -->
+  <TextColor name="color_.9_F3F5F9" value="#e6F3F5F9" />
+  <Class name="conf_ctrlbtn_size" width="70" height="56" />
+  <Class name="conf_ctrlbtn_icon" width="28" height="28" margin="0,4,0,0" halign="center" mouse="false"/>
+  <Class name="conf_ctrlbtn_more_uptri" normalimage="file='svg/icon-uptriangle.svg' dest='1,1,21,21'" selectednormalimage="file='svg/icon-uptriangle.svg' dest='1,1,21,21'" />
+  <Class name="conf_ctrlbtn_more_downtri" normalimage="file='svg/icon-downngle.svg' dest='1,1,21,21'" selectednormalimage="file='svg/icon-downngle.svg' dest='1,1,21,21'" />
+  <Class name="conf_ctrlbtn_counter" align="center" font="system_10" width="auto" minwidth="14" maxwidth="30" height="14" fillround="14,14" margin="41,2,0,0" textpadding="3,0,4,0" mouse="false" />
+  <Class name="conf_ctrlbtn_title" width="stretch" font="system_12" align="center" textpadding="0,-1,0,0" normaltextcolor="color_.9_F3F5F9" margin="0,34,0,5" mouse="false" />
+  <!-- 离开会议按钮 -->
+  <Class name="conf_leave" width="60" height="28" fillround="4,4" />
+  <!-- 会控图标 conf_ctrl_icon -->
+  <Class name="cci_mute_0" bkimage="svg/icon-micinput-0.svg" />
+  <Class name="cci_mute_1" bkimage="svg/icon-micinput-1.svg" />
+  <Class name="cci_mute_2" bkimage="svg/icon-micinput-2.svg" />
+  <Class name="cci_mute_3" bkimage="svg/icon-micinput-3.svg" />
+  <Class name="cci_mute_4" bkimage="svg/icon-micinput-4.svg" />
+  <Class name="cci_mute_5" bkimage="svg/icon-micinput-5.svg" />
+  <Class name="cci_mute_6" bkimage="svg/icon-micinput-6.svg" />
+  <Class name="cci_mute_7" bkimage="svg/icon-micinput-7.svg" />
+  <Class name="cci_mute_8" bkimage="svg/icon-micinput-8.svg" />
+  <Class name="cci_mute_9" bkimage="svg/icon-micinput-9.svg" />
+  <Class name="cci_unmute" bkimage="svg/icon-unmute.svg" />
+  <Class name="cci_mute_disabled" bkimage="svg/icon-mute-disabled.svg" />
+  <Class name="cci_speaker" bkimage="svg/icon-speaker.svg" />
+  <Class name="cci_unspeaker" bkimage="svg/icon-unspeaker.svg" />
+  <Class name="cci_speaker_disabled" bkimage="svg/icon-speaker-disabled.svg" />
+  <Class name="cci_video" bkimage="svg/icon-video.svg" />
+  <Class name="cci_unvideo" bkimage="svg/icon-unvideo.svg" />
+  <Class name="cci_video_disabled" bkimage="svg/icon-video-disabled.svg" />
+  <Class name="cci_device_err" bkimage="svg/icon_warn_red.svg" />
+  <Class name="cci_chat" bkimage="svg/icon-chat.svg" />
+  <Class name="cci_chat_disabled" bkimage="svg/icon-chat-disabled.svg" />
+  <Class name="cci_chat_counter" bkcolor="color_F34B4B" normaltextcolor="white" />
+  <Class name="cci_record" bkimage="svg/icon-record-start.svg" />
+  <Class name="cci_record_disabled" bkimage="svg/icon-record-disabled.svg" />
+  <Class name="cci_pauserecord" bkimage="svg/icon-record-pause.svg" />
+  <Class name="cci_stoprecord" bkimage="svg/icon-record-stop.svg" />
+  <Class name="cci_switchmod" bkimage="svg/icon-speakerview.svg" />
+
+  <Class name="cci_participant" bkimage="svg/icon-participant.svg" />
+  <Class name="cci_participant_disable" bkimage="svg/icon-participant-disable.svg"/>
+  <Class name="cci_participant_counter" bkcolor="color_FDDD" normaltextcolor="color_3F3F3F"/>
+  <Class name="cci_participant_counter_red" bkcolor="color_F34B4B" normaltextcolor="white" />
+  <Class name="cci_share" bkimage="svg/icon-share.svg" />
+  <Class name="cci_share_disable" bkimage="svg/icon-share-disable.svg" />
+  <Class name="cci_security" bkimage="svg/icon-security-white-btn.svg" />
+  <Class name="cci_invite" bkimage="svg/icon-invite.svg" />
+  <Class name="cci_audience_watch" bkimage="svg/icon-audience-watch.svg" />
+  <Class name="cci_audience_watch_off" bkimage="svg/icon-audience-watch-off.svg" />
+  <Class name="cci_more" bkimage="svg/icon-more.svg" />
+  <Class name="cci_handup" bkimage="svg/icon-handup-white.svg" />
+  <Class name="cci_handup_disabled" bkimage="svg/icon-handup-white-disabled.svg" />
+  <Class name="cci_linkshare" bkimage="svg/icon-linkshare.svg" />
+  
+  <!-- 共享工具窗口会控图标 -->
+  <Class name="cci_remote" bkimage="svg/icon-remote-control.svg" />
+  <Class name="cci_reshare" bkimage="svg/icon-reshare.svg" />
+  <Class name="cci_anno" bkimage="svg/icon-share-anno.svg" />
+  <Class name="cci_translation" bkimage="svg/icon-translation.svg" />
+  <Class name="cci_chinese" bkimage="svg/icon-chinese.svg" />
+  <Class name="cci_EN" bkimage="svg/icon-EN.svg" />
+  <Class name="cci_FR" bkimage="svg/icon-FR.svg" />
+  <Class name="cci_DE" bkimage="svg/icon-DE.svg" />
+  <Class name="cci_RU" bkimage="svg/icon-RU.svg" />
+  <Class name="cci_ES" bkimage="svg/icon-ES.svg" />
+  <Class name="cci_PT" bkimage="svg/icon-PT.svg" />
+  <Class name="cci_JA" bkimage="svg/icon-JA.svg" />
+  <Class name="cci_K" bkimage="svg/icon-K.svg" />
+  <Class name="cci_AR" bkimage="svg/icon-AR.svg" />
+  <Class name="cci_IT" bkimage="svg/icon-IT.svg" />
+  <Class name="cci_customize" bkimage="svg/icon-customize.svg" />
+  <!-- 共享工具窗口标题栏图标 -->
+  <Class name="cci_record_local" bkimage="svg/icon-sharewnd-record.svg" />
+  <Class name="cci_record_cloud" bkimage="svg/icon-sharewnd-record-cloud.svg" />
+  <Class name="cci_signal_1" bkimage="svg/icon-sharewnd-signal-1.svg" />
+  <Class name="cci_signal_2" bkimage="svg/icon-sharewnd-signal-2.svg" />
+  <Class name="cci_signal_3" bkimage="svg/icon-sharewnd-signal-3.svg" />
+  <Class name="cci_signal_4" bkimage="svg/icon-sharewnd-signal-4.svg" />
+  <Class name="cci_up" normalimage="file='svg/icon-sharewnd-up-normal.svg'" hotimage="file='svg/icon-sharewnd-up-hover.svg'" pushedimage="file='svg/icon-sharewnd-up-pressed.svg'" />
+  <Class name="cci_down" normalimage="file='svg/icon-sharewnd-down-normal.svg'" hotimage="file='svg/icon-sharewnd-down-hover.svg'" pushedimage="file='svg/icon-sharewnd-down-pressed.svg'" />
+
+  <!-- 与会者列表样式 -->
+  <Class name="waiting_title" height="17" valign="center"/>
+  <Class name="waiting_menu" width="auto" height="24" halign="right" valign="center" margin="0,0,33,0" fillround="4,4" textpadding="5,0,5,0"/>
+  <Class name="waiting_more" width="28" height="24" halign="right" valign="center" margin="0,0,5,0" fillround="4,4"/>
+  <Class name="meeting_group" height="30" width="stretch" bkcolor="color_FAFBFF" padding="0,2,0,0"/>
+  <Class name="group_name" font="system_12" normaltextcolor="color_F999" singleline="true" valign="center" endellipsis="false"/>
+  <Class name="text_size" font="system_12" singleline="true" valign="center" endellipsis="false"/>
+  <Class name="zero_text_font" font="system_14" singleline="false" halign="center" align="center" endellipsis="false"
+    normaltextcolor="color_999999" width="268"/>
+  <Class name="btn_text" font="system_12" normaltextcolor="white" singleline="true" valign="center" endellipsis="false"
+    textpadding="6,4,6,4"/>
+  <Class name="participant_container" vscrollbar="true"/>
+
+  <!-- 对话框操作按钮样式 -->
+  <Class name="dlg_setting" width="24" height="24" margin="6,8,0,4" bkimage="file='svg/icon-setting.svg' dest='2,2,22,22'" />
+  <Class name="dlg_merge" width="24" height="24" margin="6,8,0,4" bkimage="file='svg/icon-title-merge.svg' dest='2,2,22,22'"/>
+  <Class name="dlg_close" width="24" height="24" margin="6,8,0,4" bkimage="file='svg/icon-frame-close.svg' dest='2,2,22,22'"/>
+  <Class name="dlg_more" width="24" height="24" margin="6,8,0,4" bkimage="file='svg/icon-title-more.svg' dest='2,2,22,22'"/>
+
+  <!-- 传译工具栏样式 -->
+  <Class name="btn_channel_select" normalcolor="color_0D94FF" hotcolor="color_3DA9FF" pushedcolor="color_0A76CC"
+         normaltextcolor= "white" hottextcolor="white" pushedtextcolor="white" fadehot="false" />
+  <Class name="btn_channel_unselect" normalcolor="" hotcolor="" pushedcolor=""
+         normaltextcolor="color_.6_white" hottextcolor="white" pushedtextcolor="color_.8_white" fadehot="false"/>
+  <Class name="text_channel_select" normaltextcolor= "white" fadehot="false"/>
+  <Class name="text_channel_unselect" normaltextcolor="color_.6_white" hottextcolor="white" pushedtextcolor="color_.8_white" fadehot="false"/>
+
+  <!-- 传译确认弹框样式 -->
+  <Class name="language_box" bkcolor="color_EEEEEE" fillround="4,4"/>
+  <Class name="abbreviation_icon" width="24" height="24" margin="6,0,0,0" valign="center" align="vcenter" normaltextcolor="color_EEEEEE"/>
+  <Class name="language_text" margin="6,0,4,0" valign="center" font="system_14" singleline="true" endellipsis="true" normaltextcolor="color_666666"/>
+  
+  <!-- 左上角提示区样式 -->
+  <Class name="lti_local_recode" bkimage="file='svg/lefttip/icon-local-recode.svg' dest='2,2,22,22'" />
+  <Class name="lti_cloud_recode" bkimage="file='svg/lefttip/icon-cloud-recode.svg' dest='2,2,22,22'" />
+  <Class name="lti_paused_record" bkimage="file='svg/lefttip/icon-recode-paused.svg' dest='2,2,22,22'" />
+  <Class name="lti_resume_record" bkimage="file='svg/lefttip/icon-recode-resume.svg' dest='2,2,22,22'" />
+  <Class name="lti_stop_record" bkimage="file='svg/lefttip/icon-recode-stop.svg' dest='2,2,22,22'" />
+  <Class name="lti_webinar" bkimage="svg/lefttip/icon-webinar.svg" />
+  <Class name="lti_cancel_watch" textpadding="26,0,10,0" normaltextcolor="white" font="system_12" width="auto" height="26" bkcolor="color_.7_3F3F3F" bordersize="1" fillround="2,2"
+         bkimage="file='svg/lefttip/icon-cancel-watch.svg' dest='2,2,22,22'" />
+
+  <!-- 传译员确认弹框语言图标 -->
+  <Class name="interpret_chinese" bkimage="svg/interpret-chinese.svg" />
+  <Class name="interpret_EN" bkimage="svg/interpret-EN.svg" />
+  <Class name="interpret_FR" bkimage="svg/interpret-FR.svg" />
+  <Class name="interpret_DE" bkimage="svg/interpret-DE.svg" />
+  <Class name="interpret_RU" bkimage="svg/interpret-RU.svg" />
+  <Class name="interpret_ES" bkimage="svg/interpret-ES.svg" />
+  <Class name="interpret_PT" bkimage="svg/interpret-PT.svg" />
+  <Class name="interpret_JA" bkimage="svg/interpret-JA.svg" />
+  <Class name="interpret_K" bkimage="svg/interpret-K.svg" />
+  <Class name="interpret_AR" bkimage="svg/interpret-AR.svg" />
+  <Class name="interpret_IT" bkimage="svg/interpret-IT.svg" />
+  <Class name="interpret_customize" bkimage="svg/interpret-customize.svg" />
+  
+  <!-- 字幕 -->
+  <Class name="btn_channel_select" bkcolor="color_0D94FF" normaltextcolor="white" hottextcolor="white" pushedtextcolor="white" fadehot="false" valign="center" fillround="4,4" textpadding="6,0,6,0" singleline="true" cursortype="hand"/>
+  <Class name="btn_channel_unselect" bkcolor="" normaltextcolor="color_.6_white" hottextcolor="white" pushedtextcolor="color_.8_white" fadehot="false" valign="center" fillround="4,4" textpadding="6,0,6,0" singleline="true" cursortype="hand"/>
+  <Class name="text_channel_select" normaltextcolor="white" hottextcolor="white" pushedtextcolor="white" singleline="true" fadehot="false"/>
+  <Class name="text_channel_unselect" normaltextcolor="color_.6_white" hottextcolor="white" pushedtextcolor="color_.8_white" singleline="true" fadehot="false"/>
+  <Class name="btn_channel_more" normalcolor="" hotcolor="color_.24_white" pushedtextcolor="color_.14_white" fadehot="false" valign="center" fillround="4,4" textpadding="6,0,6,0" singleline="true" cursortype="hand"/>
+  <Class name="btn_setting" width="20" height="20"  bkimage="svg/icon-subtitles-setting.svg"/>
+  <Class name="btn_more" width="20" height="20" margin="10,0,0,0" bkimage="svg/icon-title-more.svg"/>
+  
+  <!-- 弹幕 -->
+  <Class name="scrolling_comment_msg_item" font="system_12" textpadding="12,6,12,6" minheight="30" height="auto" maxheight="80" maxwidth="280"
+         bkimage="file='svg/scrollingcomment/bubble.svg' corner='10,10,10,10'"
+         hostimg="svg/scrollingcomment/icon-host-{0}.svg"
+         namecolor="color_66BBFF" contentcolor="white" marginlabel="4" margincontent="8"/>
+
+  <!-- 滚动条 -->
+  <Class name="vscrollbar" width="14" fadealpha="true"
+         thumbnormalimage="file='images/thumb_normal.png'  corner='0,8,0,8'"
+         thumbhotimage="file='images/thumb_hovered.png' corner='0,8,0,8'"
+         bkhotimage="file='images/bk_hovered.png' corner='0,4,0,4'"
+         showbutton1="false" showbutton2="false" autohidescroll="false" />
+
+  <!--富文本控件通用样式-->
+  <Class name="richEdit" multiline="false" autohscroll="true" wantreturnmsg="true" wanttab="false" rich="false" normaltextcolor="color_333333" disabledtextcolor="color_333333"/>
+
+  <Class name="record_state_text" valign="center" height="auto" maxwidth="500" normaltextcolor="white"/>
+  <!--列表通用样式-->
+  <Class name="list" bkcolor="color_FAFBFF" vscrollbar="true"/>
+</Global>

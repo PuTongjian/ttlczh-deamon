@@ -13,8 +13,11 @@
     "build:renderer": "vite build",
     "generate-cert": "node src/scripts/generate-cert.js",
     "pack": "electron-builder --dir",
-    "dist": "npm run build && electron-builder",
-    "dist:win": "npm run build && electron-builder --win"
+    "dist": "pnpm run build && electron-builder",
+    "dist:win": "pnpm run build && electron-builder --win --config.win.certificateFile=null --config.win.signingHashAlgorithms=null",
+    "dist:win:sign": "pnpm run build && electron-builder --win",
+    "dist:win:no-sign": "pnpm run build && electron-builder --win --config.win.certificateFile=null --config.win.signingHashAlgorithms=null",
+    "clean:cache": "rimraf \"%LOCALAPPDATA%\\electron-builder\\Cache\""
   },
   "keywords": [
     "electron",

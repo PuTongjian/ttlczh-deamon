@@ -46,10 +46,13 @@ if "%choice%"=="1" (
     )
 ) else if "%choice%"=="2" (
     echo.
+    echo 清理缓存...
+    call pnpm run clean:cache
+    echo.
     echo 开始构建（跳过签名）...
     call pnpm run build
     if %errorLevel% equ 0 (
-        call electron-builder --win --config.win.sign=false
+        call electron-builder --win
     )
 ) else if "%choice%"=="3" (
     echo.

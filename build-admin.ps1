@@ -51,10 +51,13 @@ switch ($choice) {
     }
     "2" {
         Write-Host ""
+        Write-Host "清理缓存..." -ForegroundColor Yellow
+        pnpm run clean:cache
+        Write-Host ""
         Write-Host "开始构建（跳过签名）..." -ForegroundColor Yellow
         pnpm run build
         if ($LASTEXITCODE -eq 0) {
-            electron-builder --win --config.win.sign=false
+            electron-builder --win
         }
     }
     "3" {

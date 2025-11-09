@@ -14,10 +14,10 @@
     "generate-cert": "node src/scripts/generate-cert.js",
     "pack": "electron-builder --dir",
     "dist": "pnpm run build && electron-builder",
-    "dist:win": "pnpm run build && electron-builder --win --config.win.sign=false",
-    "dist:win:sign": "pnpm run build && electron-builder --win",
-    "dist:win:no-sign": "pnpm run build && electron-builder --win --config.win.sign=false",
-    "clean:cache": "rimraf \"%LOCALAPPDATA%\\electron-builder\\Cache\""
+    "dist:win": "pnpm run clean:cache && pnpm run build && electron-builder --win",
+    "dist:win:sign": "pnpm run build && electron-builder --win --config.win.sign=true",
+    "dist:win:no-sign": "pnpm run clean:cache && pnpm run build && electron-builder --win",
+    "clean:cache": "if exist \"%LOCALAPPDATA%\\electron-builder\\Cache\" rmdir /s /q \"%LOCALAPPDATA%\\electron-builder\\Cache\""
   },
   "keywords": [
     "electron",
@@ -73,7 +73,8 @@
         }
       ],
       "requestedExecutionLevel": "requireAdministrator",
-      "icon": "resources/icon.ico"
+      "icon": "resources/icon.ico",
+      "sign": false
     },
     "nsis": {
       "oneClick": false,

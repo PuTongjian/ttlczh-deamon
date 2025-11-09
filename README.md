@@ -66,6 +66,39 @@ npm run dist:win
 
 安装包将输出到 `dist-electron/` 目录。
 
+### 构建故障排除
+
+#### 符号链接权限错误
+
+如果在 Windows 上构建时遇到以下错误：
+```
+ERROR: Cannot create symbolic link : 客户端没有所需的特权
+```
+
+这是因为 electron-builder 在解压 winCodeSign 工具时需要创建符号链接，而 Windows 默认需要管理员权限。
+
+**解决方案：**
+
+1. **使用环境变量（推荐）**：构建脚本已配置 `CSC_IDENTITY_AUTO_DISCOVERY=false` 环境变量来跳过代码签名工具下载。如果仍有问题，可以手动设置：
+   ```bash
+   set CSC_IDENTITY_AUTO_DISCOVERY=false
+   npm run dist:win
+   ```
+
+2. **以管理员权限运行**：使用项目提供的管理员构建脚本：
+   - Windows CMD: `build-admin.bat`
+   - PowerShell: `build-admin.ps1`
+
+3. **启用 Windows 开发者模式**（允许非管理员创建符号链接）：
+   - 打开"设置" > "隐私和安全性" > "开发者选项"
+   - 启用"开发人员模式"
+
+4. **清理缓存后重试**：
+   ```bash
+   npm run clean:cache
+   npm run dist:win
+   ```
+
 ## 项目结构
 
 ```

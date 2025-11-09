@@ -180,6 +180,169 @@ export class ProcessManager {
   }
 
   /**
+   * 诊断 DLL 依赖问题（Windows）
+   */
+  private async diagnoseDLLDependencies(processPath: string, processDir: string): Promise<string> {
+    if (process.platform !== 'win32') {
+      return '';
+    }
+
+    const diagnostics: string[] = [];
+    diagnostics.push('=== DLL 依赖诊断 ===');
+
+    // 1. 检查进程目录中的 DLL
+    const missingDLLs = await this.checkCommonDLLs(processDir);
+    if (missingDLLs.length > 0) {
+      diagnostics.push(`\n进程目录中缺少的常见 DLL: ${missingDLLs.join(', ')}`);
+    }
+
+    // 2. 尝试使用 where 命令查找 DLL（如果系统中有）
+    diagnostics.push('\n正在检查系统 PATH 中的 DLL...');
+    const commonDLLs = ['vcruntime140.dll', 'msvcp140.dll', 'vcruntime140_1.dll'];
+    for (const dll of commonDLLs) {
+      try {
+        const { stdout } = await execAsync(`where ${dll}`, { timeout: 3000 });
+        if (stdout.trim()) {
+          const locations = stdout.trim().split('\n').filter(line => line.trim());
+          diagnostics.push(`  ✓ ${dll} 找到: ${locations.join(', ')}`);
+        } else {
+          diagnostics.push(`  ✗ ${dll} 未在系统 PATH 中找到`);
+        }
+      } catch (error) {
+        diagnostics.push(`  ✗ ${dll} 未在系统 PATH 中找到`);
+      }
+    }
+
+    // 3. 检查 Visual C++ 运行时库注册表项
+    diagnostics.push('\n正在检查 Visual C++ 运行时库...');
+    try {
+      const { stdout } = await execAsync(
+        'reg query "HKLM\\SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes" /s 2>nul || reg query "HKLM\\SOFTWARE\\WOW6432Node\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes" /s 2>nul',
+        { timeout: 3000 }
+      );
+      if (stdout.trim()) {
+        diagnostics.push('  ✓ 检测到 Visual C++ 运行时库注册表项');
+      } else {
+        diagnostics.push('  ✗ 未检测到 Visual C++ 运行时库注册表项');
+        diagnostics.push('  建议: 安装 Microsoft Visual C++ Redistributable');
+      }
+    } catch (error) {
+      diagnostics.push('  ⚠ 无法检查 Visual C++ 运行时库注册表（可能需要管理员权限）');
+    }
+
+    // 4. 检查 Windows 系统目录中的 DLL
+    diagnostics.push('\n正在检查 Windows 系统目录...');
+    const systemDirs = [
+      process.env.SystemRoot ? path.join(process.env.SystemRoot, 'System32') : '',
+      process.env.SystemRoot ? path.join(process.env.SystemRoot, 'SysWOW64') : '',
+    ].filter(dir => dir);
+
+    for (const dll of commonDLLs) {
+      let found = false;
+      for (const sysDir of systemDirs) {
+        const dllPath = path.join(sysDir, dll);
+        if (fs.existsSync(dllPath)) {
+          diagnostics.push(`  ✓ ${dll} 在 ${sysDir} 中找到`);
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        diagnostics.push(`  ✗ ${dll} 未在系统目录中找到`);
+      }
+    }
+
+    // 5. 建议
+    diagnostics.push('\n=== 建议解决方案 ===');
+    diagnostics.push('1. 安装 Microsoft Visual C++ Redistributable:');
+    diagnostics.push('   - VC++ 2015-2022 Redistributable (x64): https://aka.ms/vs/17/release/vc_redist.x64.exe');
+    diagnostics.push('   - VC++ 2015-2022 Redistributable (x86): https://aka.ms/vs/17/release/vc_redist.x86.exe');
+    diagnostics.push('2. 确保所有必需的 DLL 文件在进程目录中');
+    diagnostics.push('3. 检查系统 PATH 环境变量是否包含必要的路径');
+    diagnostics.push('4. 尝试以管理员权限运行程序');
+
+    return diagnostics.join('\n');
+  }
+
+  /**
+   * 尝试使用 cmd /c 启动进程（备用方法）
+   */
+  private async startProcessWithCmd(processPath: string, processDir: string): Promise<ProcessStartResult> {
+    return new Promise((resolve) => {
+      let stderrOutput = '';
+      let exitCode: number | null = null;
+      let isResolved = false;
+
+      const safeResolve = (result: ProcessStartResult) => {
+        if (!isResolved) {
+          isResolved = true;
+          resolve(result);
+        }
+      };
+
+      // 使用 cmd /c 启动进程
+      const cmd = `cmd /c "${processPath}"`;
+      console.log(`[2] Trying alternative method: ${cmd}`);
+
+      this.currentProcess = exec(cmd, {
+        cwd: processDir,
+        env: {
+          ...process.env,
+          PATH: `${processDir}${path.delimiter}${process.env.PATH}`,
+        },
+        timeout: 5000, // 5秒超时
+      }, (error, stdout, stderr) => {
+        if (error) {
+          exitCode = error.code || null;
+          stderrOutput = stderr || '';
+          console.error(`[2] Process failed with cmd /c: ${error.message}`);
+          if (exitCode !== null) {
+            safeResolve({
+              success: false,
+              error: `Process failed with cmd /c: ${error.message}\nExit code: ${exitCode}\nStderr: ${stderrOutput || 'No stderr output'}`,
+              exitCode,
+            });
+          } else {
+            safeResolve({
+              success: false,
+              error: `Process failed with cmd /c: ${error.message}\nStderr: ${stderrOutput || 'No stderr output'}`,
+            });
+          }
+        }
+      });
+
+      // 监听进程退出
+      if (this.currentProcess) {
+        this.currentProcess.on('exit', (code: number | null) => {
+          exitCode = code;
+          if (code === 0) {
+            // 如果进程立即退出但返回 0，可能不是真正的成功
+            // 等待一下检查进程是否还在运行
+            setTimeout(async () => {
+              const status = await this.checkProcessRunning();
+              if (status.isRunning) {
+                console.log(`[2] Process started successfully with cmd /c (PID: ${status.pid})`);
+                safeResolve({ success: true });
+              } else {
+                safeResolve({
+                  success: false,
+                  error: 'Process exited immediately with code 0',
+                });
+              }
+            }, 2000);
+          } else if (code !== null) {
+            safeResolve({
+              success: false,
+              error: `Process exited with code ${code}\nStderr: ${stderrOutput || 'No stderr output'}`,
+              exitCode: code,
+            });
+          }
+        });
+      }
+    });
+  }
+
+  /**
    * 启动进程
    */
   async startProcess(): Promise<ProcessStartResult> {
@@ -277,7 +440,7 @@ export class ProcessManager {
         });
 
         // 监听进程退出事件（如果进程立即退出）
-        this.currentProcess.on('exit', (code: number | null, signal: string | null) => {
+        this.currentProcess.on('exit', async (code: number | null, signal: string | null) => {
           exitCode = code;
           hasExited = true;
 
@@ -311,7 +474,41 @@ export class ProcessManager {
               errorMessage += '\nStderr: No stderr output';
             }
 
-            // 如果进程立即退出，立即返回失败
+            // 如果是 DLL 相关错误，运行详细诊断
+            if (process.platform === 'win32' && code === 0xC0000135) {
+              console.log('[1] Running detailed DLL dependency diagnosis...');
+              try {
+                const dllDiagnostics = await this.diagnoseDLLDependencies(this.processPath, processDir);
+                if (dllDiagnostics) {
+                  errorMessage += `\n\n${dllDiagnostics}`;
+                  console.log('[1] DLL dependency diagnosis completed');
+                }
+              } catch (diagError: any) {
+                console.error(`[1] Failed to run DLL diagnosis: ${diagError.message}`);
+              }
+            }
+
+            // 如果进程立即退出，尝试备用启动方法（仅 Windows 且是 DLL 错误）
+            if (process.platform === 'win32' && code === 0xC0000135) {
+              console.log('[1] Trying alternative startup method...');
+              try {
+                const altResult = await this.startProcessWithCmd(this.processPath, processDir);
+                if (altResult.success) {
+                  console.log('[1] Alternative method succeeded!');
+                  safeResolve(altResult);
+                  return;
+                } else {
+                  console.error(`[1] Alternative method also failed: ${altResult.error}`);
+                  // 将备用方法的错误信息也添加到错误消息中
+                  errorMessage += `\n\n备用启动方法也失败:\n${altResult.error}`;
+                }
+              } catch (altError: any) {
+                console.error(`[1] Alternative method error: ${altError.message}`);
+                errorMessage += `\n\n备用启动方法错误: ${altError.message}`;
+              }
+            }
+
+            // 如果进程立即退出，返回失败
             safeResolve({
               success: false,
               error: errorMessage,

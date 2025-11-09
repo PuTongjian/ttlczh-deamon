@@ -227,9 +227,16 @@ function setupIPC() {
   // 重启进程
   ipcMain.handle('restart-process', async () => {
     try {
+      log('Restarting process...');
       const success = await processManager.restartProcess();
+      if (success) {
+        log('Process restarted successfully');
+      } else {
+        log('Process restart failed', 'error');
+      }
       return { success };
     } catch (error: any) {
+      log(`Process restart error: ${error.message}`, 'error');
       return {
         success: false,
         error: error.message || 'Failed to restart process',
@@ -250,14 +257,40 @@ function setupIPC() {
         ? path.join(process.resourcesPath, 'resources', 'app-cert')
         : path.join(__dirname, '../../resources/app-cert');
 
+      let installResult: boolean;
+      let certPath: string;
+
       if (type === 'cloudlinkkit') {
-        await certManager.installCloudlinkKitCert(sdkDir);
+        certPath = path.join(sdkDir, 'root.crt');
+        installResult = await certManager.installCloudlinkKitCert(sdkDir);
       } else {
-        await certManager.installAppCert(appCertPath);
+        certPath = path.join(appCertPath, 'root.crt');
+        installResult = await certManager.installAppCert(appCertPath);
+      }
+
+      // 检查安装结果，如果失败则返回错误
+      if (!installResult) {
+        // 添加重试机制，等待证书检查完成（最多等待3秒，每次间隔500ms）
+        let verified = false;
+        for (let i = 0; i < 6; i++) {
+          await new Promise(resolve => setTimeout(resolve, 500));
+          verified = await certManager.isCertInstalled(certPath);
+          if (verified) {
+            break;
+          }
+        }
+
+        if (!verified) {
+          return {
+            success: false,
+            error: 'Certificate installation completed but verification failed. Please check if administrator privileges are required.',
+          };
+        }
       }
 
       return { success: true };
     } catch (error: any) {
+      log(`Certificate import failed: ${error.message}`, 'error');
       return {
         success: false,
         error: error.message || 'Failed to import certificate',

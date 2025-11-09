@@ -105,32 +105,71 @@ export class ProcessManager {
       // 先检查是否已经在运行
       const status = await this.checkProcessRunning();
       if (status.isRunning) {
+        console.log(`Process is already running (PID: ${status.pid})`);
         return true;
       }
 
-      // 启动进程
-      if (process.platform === 'win32') {
-        this.currentProcess = spawn(this.processPath, [], {
-          detached: true,
-          stdio: 'ignore',
-          cwd: require('path').dirname(this.processPath),
+      console.log(`Starting process: ${this.processPath}`);
+
+      // 启动进程，捕获stderr用于错误日志
+      const processDir = require('path').dirname(this.processPath);
+      this.currentProcess = spawn(this.processPath, [], {
+        detached: true,
+        stdio: ['ignore', 'ignore', 'pipe'], // 只捕获stderr用于错误日志
+        cwd: processDir,
+      });
+
+      // 收集stderr输出
+      let stderrOutput = '';
+      if (this.currentProcess.stderr) {
+        this.currentProcess.stderr.on('data', (data: Buffer) => {
+          stderrOutput += data.toString();
         });
-        this.currentProcess.unref();
-      } else {
-        this.currentProcess = spawn(this.processPath, [], {
-          detached: true,
-          stdio: 'ignore',
-          cwd: require('path').dirname(this.processPath),
-        });
-        this.currentProcess.unref();
       }
+
+      // 捕获spawn错误事件
+      this.currentProcess.on('error', (error: Error) => {
+        console.error(`Failed to spawn process: ${error.message}`);
+        console.error(`Process path: ${this.processPath}`);
+        console.error(`Working directory: ${processDir}`);
+        if (stderrOutput) {
+          console.error(`Stderr output: ${stderrOutput}`);
+        }
+      });
+
+      // 监听进程退出事件（如果进程立即退出）
+      this.currentProcess.on('exit', (code: number | null, signal: string | null) => {
+        if (code !== null) {
+          console.error(`Process exited immediately with code ${code}`);
+          if (signal) {
+            console.error(`Exit signal: ${signal}`);
+          }
+          if (stderrOutput) {
+            console.error(`Stderr output: ${stderrOutput}`);
+          }
+        }
+      });
+
+      this.currentProcess.unref();
 
       // 等待一下，检查是否成功启动
       await new Promise(resolve => setTimeout(resolve, 1000));
       const newStatus = await this.checkProcessRunning();
+
+      if (newStatus.isRunning) {
+        console.log(`Process started successfully (PID: ${newStatus.pid})`);
+      } else {
+        console.error(`Process failed to start. Stderr: ${stderrOutput || 'No stderr output'}`);
+      }
+
       return newStatus.isRunning;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to start process:', error);
+      console.error(`Process path: ${this.processPath}`);
+      console.error(`Error message: ${error.message}`);
+      if (error.stack) {
+        console.error(`Stack trace: ${error.stack}`);
+      }
       return false;
     }
   }

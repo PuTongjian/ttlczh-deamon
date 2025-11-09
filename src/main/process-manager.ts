@@ -12,6 +12,12 @@ export interface ProcessStatus {
   port7684Open: boolean;
 }
 
+export interface ProcessStartResult {
+  success: boolean;
+  error?: string;
+  exitCode?: number;
+}
+
 export class ProcessManager {
   private processPath: string = '';
   private currentProcess: any = null;
@@ -176,9 +182,12 @@ export class ProcessManager {
   /**
    * 启动进程
    */
-  async startProcess(): Promise<boolean> {
+  async startProcess(): Promise<ProcessStartResult> {
     if (!this.processPath) {
-      throw new Error('Process path not set');
+      return {
+        success: false,
+        error: 'Process path not set',
+      };
     }
 
     try {
@@ -186,29 +195,33 @@ export class ProcessManager {
       const status = await this.checkProcessRunning();
       if (status.isRunning) {
         console.log(`Process is already running (PID: ${status.pid})`);
-        return true;
+        return { success: true };
       }
 
-      console.log(`Starting process: ${this.processPath}`);
+      console.log(`[1] Starting process: ${this.processPath}`);
 
       // 检查文件可访问性
       const fileCheck = await this.checkFileAccessibility(this.processPath);
       if (!fileCheck.accessible) {
-        console.error(`File accessibility check failed: ${fileCheck.error}`);
-        console.error(`Process path: ${this.processPath}`);
-        return false;
+        const errorMsg = `File accessibility check failed: ${fileCheck.error}`;
+        console.error(`[1] ${errorMsg}`);
+        console.error(`[1] Process path: ${this.processPath}`);
+        return {
+          success: false,
+          error: errorMsg,
+        };
       }
 
       // 获取进程目录
       const processDir = path.dirname(this.processPath);
-      console.log(`Working directory: ${processDir}`);
+      console.log(`[1] Working directory: ${processDir}`);
 
       // 检查常见 DLL 文件（仅 Windows）
       if (process.platform === 'win32') {
         const missingDLLs = await this.checkCommonDLLs(processDir);
         if (missingDLLs.length > 0) {
-          console.warn(`Warning: Some common DLLs not found in process directory: ${missingDLLs.join(', ')}`);
-          console.warn('This may not be an error if DLLs are in system PATH or Windows directory');
+          console.warn(`[1] Warning: Some common DLLs not found in process directory: ${missingDLLs.join(', ')}`);
+          console.warn('[1] This may not be an error if DLLs are in system PATH or Windows directory');
         }
       }
 
@@ -219,11 +232,12 @@ export class ProcessManager {
         let exitCode: number | null = null;
         let hasExited = false;
         let isResolved = false; // 防止重复 resolve
+        let errorMessage = '';
 
-        const safeResolve = (value: boolean) => {
+        const safeResolve = (result: ProcessStartResult) => {
           if (!isResolved) {
             isResolved = true;
-            resolve(value);
+            resolve(result);
           }
         };
 
@@ -247,14 +261,19 @@ export class ProcessManager {
 
         // 捕获spawn错误事件
         this.currentProcess.on('error', (error: Error) => {
-          console.error(`Failed to spawn process: ${error.message}`);
-          console.error(`Process path: ${this.processPath}`);
-          console.error(`Working directory: ${processDir}`);
+          const errorMsg = `Failed to spawn process: ${error.message}`;
+          console.error(`[1] ${errorMsg}`);
+          console.error(`[1] Process path: ${this.processPath}`);
+          console.error(`[1] Working directory: ${processDir}`);
           if (stderrOutput) {
-            console.error(`Stderr output: ${stderrOutput}`);
+            console.error(`[1] Stderr output: ${stderrOutput}`);
           }
           hasExited = true;
-          safeResolve(false);
+          errorMessage = errorMsg;
+          safeResolve({
+            success: false,
+            error: errorMessage,
+          });
         });
 
         // 监听进程退出事件（如果进程立即退出）
@@ -263,25 +282,41 @@ export class ProcessManager {
           hasExited = true;
 
           if (code !== null && code !== 0) {
-            console.error(`Process exited immediately with code ${code}`);
+            console.error(`[1] Process exited immediately with code ${code}`);
             if (signal) {
-              console.error(`Exit signal: ${signal}`);
+              console.error(`[1] Exit signal: ${signal}`);
             }
 
             // 诊断 Windows 错误码
+            let errorDesc = '';
             if (process.platform === 'win32' && code > 0x80000000) {
-              const errorDesc = this.getWindowsErrorDescription(code);
-              console.error(`Error description: ${errorDesc}`);
+              errorDesc = this.getWindowsErrorDescription(code);
+              console.error(`[1] Error description: ${errorDesc}`);
             }
 
             if (stderrOutput) {
-              console.error(`Stderr output: ${stderrOutput}`);
+              console.error(`[1] Stderr output: ${stderrOutput}`);
             } else {
-              console.error(`Stderr: No stderr output`);
+              console.error(`[1] Stderr: No stderr output`);
+            }
+
+            // 构建错误消息
+            errorMessage = `Process exited immediately with code ${code}`;
+            if (errorDesc) {
+              errorMessage += `\n${errorDesc}`;
+            }
+            if (stderrOutput) {
+              errorMessage += `\nStderr: ${stderrOutput}`;
+            } else {
+              errorMessage += '\nStderr: No stderr output';
             }
 
             // 如果进程立即退出，立即返回失败
-            safeResolve(false);
+            safeResolve({
+              success: false,
+              error: errorMessage,
+              exitCode: code,
+            });
           }
         });
 
@@ -292,35 +327,52 @@ export class ProcessManager {
           }
 
           if (hasExited) {
-            safeResolve(false);
+            if (exitCode !== null && exitCode !== 0) {
+              // 已经在 exit 事件中处理了
+              return;
+            }
+            safeResolve({
+              success: false,
+              error: 'Process failed to start. Stderr: ' + (stderrOutput || 'No stderr output'),
+              exitCode: exitCode || undefined,
+            });
             return;
           }
 
           const newStatus = await this.checkProcessRunning();
           if (newStatus.isRunning) {
-            console.log(`Process started successfully (PID: ${newStatus.pid})`);
+            console.log(`[1] Process started successfully (PID: ${newStatus.pid})`);
             // 如果进程成功启动，将其分离
             if (this.currentProcess) {
               this.currentProcess.unref();
             }
-            safeResolve(true);
+            safeResolve({ success: true });
           } else {
             // 如果进程没有运行，但也没有立即退出，可能是启动失败
-            if (exitCode === null) {
-              console.error(`Process failed to start. Stderr: ${stderrOutput || 'No stderr output'}`);
-            }
-            safeResolve(false);
+            const errorMsg = exitCode === null
+              ? `Process failed to start. Stderr: ${stderrOutput || 'No stderr output'}`
+              : `Process exited with code ${exitCode}`;
+            console.error(`[1] ${errorMsg}`);
+            safeResolve({
+              success: false,
+              error: errorMsg,
+              exitCode: exitCode || undefined,
+            });
           }
         }, 2000); // 等待 2 秒检查进程状态
       });
     } catch (error: any) {
-      console.error('Failed to start process:', error);
-      console.error(`Process path: ${this.processPath}`);
-      console.error(`Error message: ${error.message}`);
+      const errorMsg = `Failed to start process: ${error.message}`;
+      console.error(`[1] ${errorMsg}`);
+      console.error(`[1] Process path: ${this.processPath}`);
+      console.error(`[1] Error message: ${error.message}`);
       if (error.stack) {
-        console.error(`Stack trace: ${error.stack}`);
+        console.error(`[1] Stack trace: ${error.stack}`);
       }
-      return false;
+      return {
+        success: false,
+        error: errorMsg,
+      };
     }
   }
 
@@ -361,10 +413,11 @@ export class ProcessManager {
   /**
    * 重启进程
    */
-  async restartProcess(): Promise<boolean> {
+  async restartProcess(): Promise<ProcessStartResult> {
     await this.stopProcess();
     await new Promise(resolve => setTimeout(resolve, 1000));
     return await this.startProcess();
   }
 }
+
 

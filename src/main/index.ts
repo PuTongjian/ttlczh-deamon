@@ -228,13 +228,13 @@ function setupIPC() {
   ipcMain.handle('restart-process', async () => {
     try {
       log('Restarting process...');
-      const success = await processManager.restartProcess();
-      if (success) {
+      const result = await processManager.restartProcess();
+      if (result.success) {
         log('Process restarted successfully');
       } else {
-        log('Process restart failed', 'error');
+        log(`Process restart failed: ${result.error || 'Unknown error'}`, 'error');
       }
-      return { success };
+      return result;
     } catch (error: any) {
       log(`Process restart error: ${error.message}`, 'error');
       return {

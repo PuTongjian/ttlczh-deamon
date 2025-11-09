@@ -210,11 +210,13 @@ export class WSSServer {
         this.processManager.setProcessPath(payload.processPath);
       }
 
-      const success = await this.processManager.restartProcess();
+      const result = await this.processManager.restartProcess();
 
       ws.send(JSON.stringify({
-        success,
-        message: success ? 'Process restarted successfully' : 'Failed to restart process',
+        success: result.success,
+        message: result.success ? 'Process restarted successfully' : (result.error || 'Failed to restart process'),
+        error: result.error,
+        exitCode: result.exitCode,
       }));
     } catch (error: any) {
       console.error('Error restarting process:', error);

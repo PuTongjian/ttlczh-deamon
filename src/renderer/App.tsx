@@ -25,6 +25,7 @@ function App() {
   const [processPath, setProcessPath] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [autoStartEnabled, setAutoStartEnabled] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const refreshStatus = async () => {
     try {
@@ -62,28 +63,47 @@ function App() {
 
   const handleAction = async (action: string) => {
     setLoading(true);
+    setErrorMessage(null);
     try {
+      let result: any;
       switch (action) {
         case 'restart':
-          await window.electronAPI.restartProcess();
+          result = await window.electronAPI.restartProcess();
+          if (!result.success) {
+            setErrorMessage(result.error || '重启进程失败');
+          }
           break;
         case 'import-cloudlinkkit-cert':
-          await window.electronAPI.importCert('cloudlinkkit');
+          result = await window.electronAPI.importCert('cloudlinkkit');
+          if (!result.success) {
+            setErrorMessage(result.error || '导入证书失败');
+          }
           break;
         case 'import-app-cert':
-          await window.electronAPI.importCert('app');
+          result = await window.electronAPI.importCert('app');
+          if (!result.success) {
+            setErrorMessage(result.error || '导入证书失败');
+          }
           break;
         case 'add-host':
-          await window.electronAPI.addHostEntry();
+          result = await window.electronAPI.addHostEntry();
+          if (!result.success) {
+            setErrorMessage(result.error || '添加 Host 条目失败');
+          }
           break;
         case 'toggle-auto-start':
-          await window.electronAPI.setAutoStart(!autoStartEnabled);
-          setAutoStartEnabled(!autoStartEnabled);
+          result = await window.electronAPI.setAutoStart(!autoStartEnabled);
+          if (!result.success) {
+            setErrorMessage(result.error || '设置自启动失败');
+          } else {
+            setAutoStartEnabled(!autoStartEnabled);
+          }
           break;
       }
       await refreshStatus();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Action failed:', error);
+      setErrorMessage(error.message || '操作失败');
     } finally {
       setLoading(false);
     }
@@ -95,6 +115,15 @@ function App() {
         <h1>WSS Daemon Manager</h1>
       </header>
       <main className="app-main">
+        {errorMessage && (
+          <div className="error-message" onClick={() => setErrorMessage(null)}>
+            <div className="error-content">
+              <strong>错误：</strong>
+              <pre>{errorMessage}</pre>
+              <button className="error-close" onClick={(e) => { e.stopPropagation(); setErrorMessage(null); }}>×</button>
+            </div>
+          </div>
+        )}
         <ProcessSelector
           processPath={processPath}
           onProcessSelected={handleProcessSelected}

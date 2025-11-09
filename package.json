@@ -14,9 +14,9 @@
     "generate-cert": "node src/scripts/generate-cert.js",
     "pack": "electron-builder --dir",
     "dist": "pnpm run build && electron-builder",
-    "dist:win": "pnpm run build && electron-builder --win --config.win.certificateFile=null --config.win.signingHashAlgorithms=null",
+    "dist:win": "pnpm run build && electron-builder --win --config.win.sign=false",
     "dist:win:sign": "pnpm run build && electron-builder --win",
-    "dist:win:no-sign": "pnpm run build && electron-builder --win --config.win.certificateFile=null --config.win.signingHashAlgorithms=null",
+    "dist:win:no-sign": "pnpm run build && electron-builder --win --config.win.sign=false",
     "clean:cache": "rimraf \"%LOCALAPPDATA%\\electron-builder\\Cache\""
   },
   "keywords": [

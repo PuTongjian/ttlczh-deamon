@@ -49,7 +49,7 @@ if "%choice%"=="1" (
     echo 开始构建（跳过签名）...
     call pnpm run build
     if %errorLevel% equ 0 (
-        call electron-builder --win --config.win.certificateFile=null --config.win.signingHashAlgorithms=null
+        call electron-builder --win --config.win.sign=false
     )
 ) else if "%choice%"=="3" (
     echo.

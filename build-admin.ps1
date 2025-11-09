@@ -54,7 +54,7 @@ switch ($choice) {
         Write-Host "开始构建（跳过签名）..." -ForegroundColor Yellow
         pnpm run build
         if ($LASTEXITCODE -eq 0) {
-            electron-builder --win --config.win.certificateFile=null --config.win.signingHashAlgorithms=null
+            electron-builder --win --config.win.sign=false
         }
     }
     "3" {

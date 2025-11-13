@@ -351,7 +351,7 @@ export class ProcessManager {
    * 方法2: 使用 PowerShell 设置 DLL 搜索路径并启动
    */
   private async startProcessWithPowerShell(processPath: string, processDir: string): Promise<ProcessStartResult> {
-    return new Promise((resolve) => {
+    return new Promise(async (resolve) => {
       let isResolved = false;
       const safeResolve = (result: ProcessStartResult) => {
         if (!isResolved) {
@@ -362,77 +362,95 @@ export class ProcessManager {
 
       console.log(`[Method 2] Using PowerShell to start: ${processPath}`);
 
-      // PowerShell 脚本：设置 DLL 搜索路径并启动进程
-      // 转义路径中的特殊字符
-      const escapedProcessDir = processDir.replace(/'/g, "''").replace(/"/g, '`"');
-      const escapedProcessPath = processPath.replace(/'/g, "''").replace(/"/g, '`"');
+      try {
+        // 使用临时 PowerShell 脚本文件，避免引号转义问题
+        const psScriptFile = path.join(processDir, 'start_daemon_temp.ps1');
 
-      const psScript = `
-        $env:PATH = '${escapedProcessDir};' + $env:PATH
-        $env:PATH = '${escapedProcessDir}\\bin;' + $env:PATH
-        $env:PATH = '${escapedProcessDir}\\lib;' + $env:PATH
-        $process = Start-Process -FilePath '${escapedProcessPath}' -WorkingDirectory '${escapedProcessDir}' -PassThru -NoNewWindow
-        Start-Sleep -Milliseconds 500
-        if ($process.HasExited) {
-          Write-Host "EXIT_CODE:$($process.ExitCode)"
-          exit $process.ExitCode
-        } else {
-          Write-Host "SUCCESS:$($process.Id)"
-          exit 0
-        }
-      `.trim();
+        // PowerShell 脚本：设置 DLL 搜索路径并启动进程
+        // 使用双引号并转义其中的双引号
+        const escapedProcessDir = processDir.replace(/"/g, '`"');
+        const escapedProcessPath = processPath.replace(/"/g, '`"');
 
-      // 使用 PowerShell 执行脚本（使用单引号包装整个脚本）
-      this.currentProcess = exec(`powershell -NoProfile -ExecutionPolicy Bypass -Command '${psScript.replace(/'/g, "''")}'`, {
-        cwd: processDir,
-        env: {
-          ...process.env,
-          PATH: `${processDir}${path.delimiter}${process.env.PATH}`,
-        },
-        timeout: 5000,
-      }, (error, stdout, stderr) => {
-        if (error) {
-          console.error(`[Method 2] PowerShell error: ${error.message}`);
-          safeResolve({
-            success: false,
-            error: `PowerShell failed: ${error.message}\nStdout: ${stdout || 'No stdout'}\nStderr: ${stderr || 'No stderr'}`,
-            exitCode: error.code || undefined,
-          });
-        } else {
-          // 检查输出
-          if (stdout.includes('SUCCESS:')) {
-            const match = stdout.match(/SUCCESS:(\d+)/);
-            if (match) {
-              console.log(`[Method 2] Process started successfully (PID: ${match[1]})`);
-              safeResolve({ success: true });
-            } else {
-              safeResolve({ success: true });
-            }
-          } else if (stdout.includes('EXIT_CODE:')) {
-            const match = stdout.match(/EXIT_CODE:(\d+)/);
-            const exitCode = match ? parseInt(match[1], 10) : undefined;
+        const psScript = `$env:PATH = "${escapedProcessDir};" + $env:PATH
+$env:PATH = "${escapedProcessDir}\\bin;" + $env:PATH
+$env:PATH = "${escapedProcessDir}\\lib;" + $env:PATH
+$process = Start-Process -FilePath "${escapedProcessPath}" -WorkingDirectory "${escapedProcessDir}" -PassThru -NoNewWindow
+Start-Sleep -Milliseconds 500
+if ($process.HasExited) {
+  Write-Host "EXIT_CODE:$($process.ExitCode)"
+  exit $process.ExitCode
+} else {
+  Write-Host "SUCCESS:$($process.Id)"
+  exit 0
+}`;
+
+        // 写入临时脚本文件
+        await fs.promises.writeFile(psScriptFile, psScript, 'utf8');
+
+        // 使用 PowerShell 执行脚本文件
+        this.currentProcess = exec(`powershell -NoProfile -ExecutionPolicy Bypass -File "${psScriptFile}"`, {
+          cwd: processDir,
+          env: {
+            ...process.env,
+            PATH: `${processDir}${path.delimiter}${process.env.PATH}`,
+          },
+          timeout: 5000,
+        }, async (error, stdout, stderr) => {
+          // 清理临时文件
+          try {
+            await fs.promises.unlink(psScriptFile);
+          } catch (e) {
+            // 忽略清理错误
+          }
+
+          if (error) {
+            console.error(`[Method 2] PowerShell error: ${error.message}`);
             safeResolve({
               success: false,
-              error: `Process exited immediately\nStdout: ${stdout}\nStderr: ${stderr || 'No stderr'}`,
-              exitCode,
+              error: `PowerShell failed: ${error.message}\nStdout: ${stdout || 'No stdout'}\nStderr: ${stderr || 'No stderr'}`,
+              exitCode: error.code || undefined,
             });
           } else {
-            // 等待一下检查进程是否在运行
-            setTimeout(async () => {
-              const status = await this.checkProcessRunning();
-              if (status.isRunning) {
-                console.log(`[Method 2] Process started successfully (PID: ${status.pid})`);
+            // 检查输出
+            if (stdout.includes('SUCCESS:')) {
+              const match = stdout.match(/SUCCESS:(\d+)/);
+              if (match) {
+                console.log(`[Method 2] Process started successfully (PID: ${match[1]})`);
                 safeResolve({ success: true });
               } else {
-                safeResolve({
-                  success: false,
-                  error: `Process may have failed\nStdout: ${stdout}\nStderr: ${stderr || 'No stderr'}`,
-                });
+                safeResolve({ success: true });
               }
-            }, 2000);
+            } else if (stdout.includes('EXIT_CODE:')) {
+              const match = stdout.match(/EXIT_CODE:(\d+)/);
+              const exitCode = match ? parseInt(match[1], 10) : undefined;
+              safeResolve({
+                success: false,
+                error: `Process exited immediately\nStdout: ${stdout}\nStderr: ${stderr || 'No stderr'}`,
+                exitCode,
+              });
+            } else {
+              // 等待一下检查进程是否在运行
+              setTimeout(async () => {
+                const status = await this.checkProcessRunning();
+                if (status.isRunning) {
+                  console.log(`[Method 2] Process started successfully (PID: ${status.pid})`);
+                  safeResolve({ success: true });
+                } else {
+                  safeResolve({
+                    success: false,
+                    error: `Process may have failed\nStdout: ${stdout}\nStderr: ${stderr || 'No stderr'}`,
+                  });
+                }
+              }, 2000);
+            }
           }
-        }
-      });
+        });
+      } catch (error: any) {
+        safeResolve({
+          success: false,
+          error: `Failed to create PowerShell script: ${error.message}`,
+        });
+      }
     });
   }
 
@@ -514,7 +532,125 @@ exit /b 0
   }
 
   /**
-   * 方法4: 使用 start 命令启动（Windows）
+   * 方法4: 使用 PowerShell 以管理员权限启动（Windows）
+   */
+  private async startProcessWithPowerShellAdmin(processPath: string, processDir: string): Promise<ProcessStartResult> {
+    return new Promise(async (resolve) => {
+      let isResolved = false;
+      const safeResolve = (result: ProcessStartResult) => {
+        if (!isResolved) {
+          isResolved = true;
+          resolve(result);
+        }
+      };
+
+      console.log(`[Method 4] Using PowerShell (Admin) to start: ${processPath}`);
+
+      try {
+        // 使用临时 PowerShell 脚本文件
+        const psScriptFile = path.join(processDir, 'start_daemon_admin_temp.ps1');
+
+        // PowerShell 脚本：以管理员权限启动进程
+        const escapedProcessDir = processDir.replace(/"/g, '`"');
+        const escapedProcessPath = processPath.replace(/"/g, '`"');
+
+        const psScript = `$env:PATH = "${escapedProcessDir};" + $env:PATH
+$env:PATH = "${escapedProcessDir}\\bin;" + $env:PATH
+$env:PATH = "${escapedProcessDir}\\lib;" + $env:PATH
+try {
+  $process = Start-Process -FilePath "${escapedProcessPath}" -WorkingDirectory "${escapedProcessDir}" -PassThru -NoNewWindow -Verb RunAs
+  Start-Sleep -Milliseconds 500
+  if ($process.HasExited) {
+    Write-Host "EXIT_CODE:$($process.ExitCode)"
+    exit $process.ExitCode
+  } else {
+    Write-Host "SUCCESS:$($process.Id)"
+    exit 0
+  }
+} catch {
+  Write-Host "ERROR:$($_.Exception.Message)"
+  exit 1
+}`;
+
+        // 写入临时脚本文件
+        await fs.promises.writeFile(psScriptFile, psScript, 'utf8');
+
+        // 使用 PowerShell 执行脚本文件
+        this.currentProcess = exec(`powershell -NoProfile -ExecutionPolicy Bypass -File "${psScriptFile}"`, {
+          cwd: processDir,
+          env: {
+            ...process.env,
+            PATH: `${processDir}${path.delimiter}${process.env.PATH}`,
+          },
+          timeout: 10000, // 管理员权限可能需要更长时间
+        }, async (error, stdout, stderr) => {
+          // 清理临时文件
+          try {
+            await fs.promises.unlink(psScriptFile);
+          } catch (e) {
+            // 忽略清理错误
+          }
+
+          if (error) {
+            console.error(`[Method 4] PowerShell (Admin) error: ${error.message}`);
+            safeResolve({
+              success: false,
+              error: `PowerShell (Admin) failed: ${error.message}\nStdout: ${stdout || 'No stdout'}\nStderr: ${stderr || 'No stderr'}`,
+              exitCode: error.code || undefined,
+            });
+          } else {
+            // 检查输出
+            if (stdout.includes('SUCCESS:')) {
+              const match = stdout.match(/SUCCESS:(\d+)/);
+              if (match) {
+                console.log(`[Method 4] Process started successfully (PID: ${match[1]})`);
+                safeResolve({ success: true });
+              } else {
+                safeResolve({ success: true });
+              }
+            } else if (stdout.includes('EXIT_CODE:')) {
+              const match = stdout.match(/EXIT_CODE:(\d+)/);
+              const exitCode = match ? parseInt(match[1], 10) : undefined;
+              safeResolve({
+                success: false,
+                error: `Process exited immediately\nStdout: ${stdout}\nStderr: ${stderr || 'No stderr'}`,
+                exitCode,
+              });
+            } else if (stdout.includes('ERROR:')) {
+              const match = stdout.match(/ERROR:(.+)/);
+              const errorMsg = match ? match[1] : 'Unknown error';
+              safeResolve({
+                success: false,
+                error: `PowerShell (Admin) error: ${errorMsg}\nStdout: ${stdout}\nStderr: ${stderr || 'No stderr'}`,
+              });
+            } else {
+              // 等待一下检查进程是否在运行
+              setTimeout(async () => {
+                const status = await this.checkProcessRunning();
+                if (status.isRunning) {
+                  console.log(`[Method 4] Process started successfully (PID: ${status.pid})`);
+                  safeResolve({ success: true });
+                } else {
+                  safeResolve({
+                    success: false,
+                    error: `Process may have failed\nStdout: ${stdout}\nStderr: ${stderr || 'No stderr'}`,
+                  });
+                }
+              }, 2000);
+            }
+          }
+        });
+      } catch (error: any) {
+        safeResolve({
+          success: false,
+          error: `Failed to create PowerShell (Admin) script: ${error.message}`,
+        });
+      }
+    });
+  }
+
+  /**
+   * 方法5: 使用 start 命令启动（Windows）
    */
   private async startProcessWithStart(processPath: string, processDir: string): Promise<ProcessStartResult> {
     return new Promise((resolve) => {
@@ -615,6 +751,7 @@ exit /b 0
         { name: 'execFile', fn: () => this.startProcessWithExecFile(this.processPath, processDir) },
         { name: 'PowerShell', fn: () => this.startProcessWithPowerShell(this.processPath, processDir) },
         { name: 'Batch Script', fn: () => this.startProcessWithBatch(this.processPath, processDir) },
+        { name: 'PowerShell (Admin)', fn: () => this.startProcessWithPowerShellAdmin(this.processPath, processDir) },
         { name: 'Start Command', fn: () => this.startProcessWithStart(this.processPath, processDir) },
       ];
 
@@ -633,7 +770,15 @@ exit /b 0
             errors.push(errorMsg);
 
             // 如果是 DLL 错误，运行诊断
-            if (result.exitCode === 0xC0000135 && process.platform === 'win32') {
+            // 检查退出码是否为 0xC0000135 (STATUS_DLL_NOT_FOUND)
+            // 退出码可能是负数，需要转换为无符号整数
+            const exitCodeHex = result.exitCode !== undefined
+              ? (result.exitCode >>> 0).toString(16).toUpperCase()
+              : '';
+            const isDLLError = result.exitCode !== undefined &&
+              ((result.exitCode >>> 0) === 0xC0000135 || exitCodeHex === 'C0000135');
+
+            if (isDLLError && process.platform === 'win32') {
               console.log(`Running DLL dependency diagnosis for ${method.name}...`);
               try {
                 const dllDiagnostics = await this.diagnoseDLLDependencies(this.processPath, processDir);

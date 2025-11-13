@@ -1,0 +1,124 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build-main",
+      "type": "shell",
+      "command": "npm run build:main",
+      "windows": {
+        "command": "npm.cmd run build:main"
+      },
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "build-preload",
+      "type": "shell",
+      "command": "npm run build:preload",
+      "windows": {
+        "command": "npm.cmd run build:preload"
+      },
+      "problemMatcher": [
+        "$tsc"
+      ]
+    },
+    {
+      "label": "build-renderer",
+      "type": "shell",
+      "command": "npm run build:renderer",
+      "windows": {
+        "command": "npm.cmd run build:renderer"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "build-all",
+      "dependsOn": [
+        "build-main",
+        "build-preload",
+        "build-renderer"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "start-vite",
+      "type": "shell",
+      "command": "npm run dev:renderer",
+      "windows": {
+        "command": "npm.cmd run dev:renderer"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^$",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*",
+          "endsPattern": ".*Local:.*http://localhost:5173.*"
+        }
+      }
+    },
+    {
+      "label": "build-and-start",
+      "dependsOn": [
+        "build-all",
+        "start-vite"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "launch-admin-bat",
+      "type": "shell",
+      "command": "${workspaceFolder}/.vscode/launch-admin.bat",
+      "windows": {
+        "command": "${workspaceFolder}\\.vscode\\launch-admin.bat"
+      },
+      "problemMatcher": [],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "launch-admin-ps1",
+      "type": "shell",
+      "command": "powershell.exe -ExecutionPolicy Bypass -File ${workspaceFolder}/.vscode/launch-admin.ps1",
+      "windows": {
+        "command": "powershell.exe -ExecutionPolicy Bypass -File ${workspaceFolder}\\.vscode\\launch-admin.ps1"
+      },
+      "problemMatcher": [],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "build-main-and-launch-admin",
+      "dependsOn": [
+        "build-main",
+        "launch-admin-bat"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "build-all-and-launch-admin",
+      "dependsOn": [
+        "build-all",
+        "start-vite",
+        "launch-admin-bat"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
